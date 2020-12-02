@@ -14,10 +14,7 @@ const Layout: React.FC<Props> = ({ children, home = false }) => (
   <div className={styles.container}>
     <Head>
       <link rel="icon" href="/favicon.ico" />
-      <meta
-        name="description"
-        content="Learn how to build a personal website using Next.js"
-      />
+      <meta name="description" content="Ricardo Busquet personal website" />
       <meta name="og:title" content={siteTitle} />
       <meta
         name="og:image"
