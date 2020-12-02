@@ -2,16 +2,18 @@ import Head from "next/head"
 import styles from "./layout.module.css"
 import utilStyles from "../styles/utils.module.css"
 import Link from "next/link"
-import type { PropsWithChildren } from "react"
 
 const name = "Ricardo Busquet"
 export const siteTitle = "Ricardo Busquet"
 
 interface Props {
-  home: boolean
+  home?: boolean
 }
 
-export default function Layout({ children, home }: PropsWithChildren<Props>) {
+export default function Layout({
+  children,
+  home = false,
+}: React.PropsWithChildren<Props>) {
   return (
     <div className={styles.container}>
       <Head>
