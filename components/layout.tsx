@@ -19,7 +19,10 @@ const Layout: React.FC<Props> = ({ children, home = false }) => (
         content="Learn how to build a personal website using Next.js"
       />
       <meta name="og:title" content={siteTitle} />
-      <meta name="og:image" content="/images/og_home.png" />
+      <meta
+        name="og:image"
+        content={`${process.env.NEXT_PUBLIC_SITE_URL}/images/og_home.png`}
+      />
       <meta name="twitter:card" content="summary_large_image" />
     </Head>
     <header className={styles.header}>
