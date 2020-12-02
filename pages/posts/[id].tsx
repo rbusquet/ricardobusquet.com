@@ -1,5 +1,5 @@
 import Head from "next/head"
-import type { GetStaticPaths, GetStaticProps } from "next/types"
+import type { GetStaticPaths, GetStaticProps, NextPage } from "next"
 import Layout from "../../components/layout"
 import { getAllPostIds, getPostData, Post } from "../../lib/posts"
 import utilStyles from "../../styles/utils.module.css"
@@ -10,24 +10,22 @@ interface Props {
   postData: Post
 }
 
-export default function PostComponent({ postData }: Props) {
-  return (
-    <Layout>
-      <Head>
-        <title>{postData.title}</title>
-      </Head>
-      <article>
-        <h1 className={utilStyles.headingXl}>{postData.title}</h1>
-        <div className={utilStyles.lightText}>
-          <Date dateString={postData.date} />
-        </div>
-        {postData.contentHtml && (
-          <div dangerouslySetInnerHTML={{ __html: postData.contentHtml }} />
-        )}
-      </article>
-    </Layout>
-  )
-}
+const PostComponent: NextPage<Props> = ({ postData }) => (
+  <Layout>
+    <Head>
+      <title>{postData.title}</title>
+    </Head>
+    <article>
+      <h1 className={utilStyles.headingXl}>{postData.title}</h1>
+      <div className={utilStyles.lightText}>
+        <Date dateString={postData.date} />
+      </div>
+      {postData.contentHtml && (
+        <div dangerouslySetInnerHTML={{ __html: postData.contentHtml }} />
+      )}
+    </article>
+  </Layout>
+)
 
 export const getStaticPaths: GetStaticPaths<{ id: string }> = async () => ({
   paths: getAllPostIds(),
@@ -44,3 +42,5 @@ export const getStaticProps: GetStaticProps<Props, { id: string }> = async ({
     },
   }
 }
+
+export default PostComponent

@@ -1,11 +1,6 @@
 import "../styles/global.css"
-import type { NextComponentType } from "next/types"
+import type { AppProps } from "next/app"
 
-interface AppTypes<T> {
-  Component: NextComponentType<T>
-  pageProps: T
-}
-
-export default function App<T>({ Component, pageProps }: AppTypes<T>) {
+export default function App({ Component, pageProps }: AppProps) {
   return <Component {...pageProps} />
 }

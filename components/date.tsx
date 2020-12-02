@@ -4,7 +4,10 @@ interface Props {
   dateString: string
 }
 
-export default function Date({ dateString }: Props) {
-  const date = parseISO(dateString)
-  return <time dateTime={dateString}>{format(date, "LLLL d, yyyy")}</time>
-}
+const Date: React.FC<Props> = ({ dateString }) => (
+  <time dateTime={dateString}>
+    {format(parseISO(dateString), "LLLL d, yyyy")}
+  </time>
+)
+
+export default Date

@@ -1,5 +1,5 @@
 import Head from "next/head"
-import type { GetStaticProps } from "next/types"
+import type { GetStaticProps, NextPage } from "next/types"
 import Layout, { siteTitle } from "../components/layout"
 import utilStyles from "../styles/utils.module.css"
 import { getSortedPostsData, Post } from "../lib/posts"
@@ -16,7 +16,7 @@ export const getStaticProps: GetStaticProps<Props> = async () => ({
   },
 })
 
-const Home: React.FC<Props> = ({ allPostsData }) => (
+const Home: NextPage<Props> = ({ allPostsData }) => (
   <Layout home>
     <Head>
       <title>{siteTitle}</title>
