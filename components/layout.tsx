@@ -21,7 +21,7 @@ const Layout: React.FC<Props> = ({ children, home = false }) => (
       <meta name="og:title" content={siteTitle} />
       <meta
         name="og:image"
-        content={`${process.env.NEXT_PUBLIC_SITE_URL}/images/og_home.png`}
+        content={`https://${process.env.NEXT_PUBLIC_SITE_URL}/images/og_home.png`}
       />
       <meta name="twitter:card" content="summary_large_image" />
     </Head>
