@@ -12,7 +12,7 @@ class Base:
 
 
 class A(Base):
-    ...
+    pass
 
 
 class B(Base):

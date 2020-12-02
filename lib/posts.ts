@@ -11,6 +11,10 @@ export interface Post {
   contentHtml?: string
 }
 
+export interface PathParams {
+  params: { id: string }
+}
+
 const postsDirectory = path.join(process.cwd(), "posts")
 
 export function getSortedPostsData(): Post[] {
@@ -43,7 +47,7 @@ export function getSortedPostsData(): Post[] {
   })
 }
 
-export function getAllPostIds() {
+export function getAllPostIds(): PathParams[] {
   const fileNames = fs.readdirSync(postsDirectory)
 
   return fileNames.map((fileName) => {
@@ -55,7 +59,7 @@ export function getAllPostIds() {
   })
 }
 
-export async function getPostData(id?: string) {
+export async function getPostData(id?: string): Promise<Post> {
   const fullPath = path.join(postsDirectory, `${id}.md`)
   const fileContents = fs.readFileSync(fullPath, "utf8")
 
