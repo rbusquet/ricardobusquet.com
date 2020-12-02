@@ -21,6 +21,7 @@ const Layout: React.FC<Props> = ({ children, home = false }) => (
         content={`https://${process.env.NEXT_PUBLIC_SITE_URL}/images/og_home.png`}
       />
       <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:creator" content="@ricbusquet" />
     </Head>
     <header className={styles.header}>
       {home ? (
