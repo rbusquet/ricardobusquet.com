@@ -1,4 +1,5 @@
 import Head from "next/head"
+import Image from "next/image"
 import styles from "./layout.module.css"
 import utilStyles from "../styles/utils.module.css"
 import Link from "next/link"
@@ -30,6 +31,8 @@ const Layout: React.FC<Props> = ({ children, home = false }) => (
             src="/images/profile.jpg"
             className={`${styles.headerHomeImage} ${utilStyles.borderCircle}`}
             alt={name}
+            width="6rem"
+            height="6rem"
           />
           <h1 className={utilStyles.heading2Xl}>{name}</h1>
         </>
@@ -37,10 +40,12 @@ const Layout: React.FC<Props> = ({ children, home = false }) => (
         <>
           <Link href="/">
             <a>
-              <img
+              <Image
                 src="/images/profile.jpg"
                 className={`${styles.headerImage} ${utilStyles.borderCircle}`}
                 alt={name}
+                width="8rem"
+                height="8rem"
               />
             </a>
           </Link>
