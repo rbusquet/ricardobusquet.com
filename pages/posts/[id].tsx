@@ -17,12 +17,13 @@ const PostComponent: NextPage<Props> = ({ postData }) => (
     </Head>
     <article>
       <h1 className={utilStyles.headingXl}>{postData.title}</h1>
-      <div className={utilStyles.lightText}>
-        <Date dateString={postData.date} />
-      </div>
+
       {postData.contentHtml && (
         <div dangerouslySetInnerHTML={{ __html: postData.contentHtml }} />
       )}
+      <small className={utilStyles.lightText}>
+        <Date dateString={postData.date} />
+      </small>
     </article>
   </Layout>
 )

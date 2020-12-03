@@ -9,9 +9,10 @@ export const siteTitle = "Ricardo Busquet"
 
 interface Props {
   home?: boolean
+  ogImage?: string
 }
 
-const Layout: React.FC<Props> = ({ children, home = false }) => (
+const Layout: React.FC<Props> = ({ children, home = false, ogImage }) => (
   <div className={styles.container}>
     <Head>
       <link rel="icon" href="/favicon.ico" />
@@ -19,7 +20,9 @@ const Layout: React.FC<Props> = ({ children, home = false }) => (
       <meta name="og:title" content={siteTitle} />
       <meta
         name="og:image"
-        content={`https://${process.env.NEXT_PUBLIC_SITE_URL}/images/og_home.png`}
+        content={`https://${process.env.NEXT_PUBLIC_SITE_URL}${
+          ogImage || "/images/og_home.png"
+        }`}
       />
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:creator" content="@ricbusquet" />
