@@ -3,6 +3,7 @@ import path from "path"
 import matter from "gray-matter"
 import remark from "remark"
 import html from "remark-html"
+// @ts-ignore
 import highlight from "remark-highlight.js"
 
 export interface Post {
@@ -21,7 +22,7 @@ const postsDirectory = path.join(process.cwd(), "posts")
 export function getSortedPostsData(): Post[] {
   // Get file names under /posts
   const fileNames = fs.readdirSync(postsDirectory)
-  const allPostsData: Post[] = fileNames.map((fileName) => {
+  const allPostsData: Post[] = fileNames.map(fileName => {
     // Remove ".md" from file name to get id
     const id = fileName.replace(/\.md$/, "")
 
@@ -51,7 +52,7 @@ export function getSortedPostsData(): Post[] {
 export function getAllPostIds(): PathParams[] {
   const fileNames = fs.readdirSync(postsDirectory)
 
-  return fileNames.map((fileName) => {
+  return fileNames.map(fileName => {
     return {
       params: {
         id: fileName.replace(/\.md$/, ""),

@@ -1,4 +1,11 @@
 {
-    "typescript.tsdk": "node_modules/typescript/lib",
-    "eslint.validate": ["typescriptreact", "javascriptreact", "typescript", "javascript"]
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "eslint.validate": [
+    "typescriptreact",
+    "javascriptreact",
+    "typescript",
+    "javascript"
+  ],
+  "editor.formatOnSave": true,
+  "editor.formatOnPaste": true
 }
