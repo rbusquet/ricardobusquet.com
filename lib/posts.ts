@@ -2,14 +2,13 @@ import fs from "fs"
 import path from "path"
 import matter from "gray-matter"
 import remark from "remark"
-import html from "remark-html"
-import highlight from "remark-highlight.js"
 
 export interface Post {
   id: string
   date: string
   title: string
   contentHtml?: string
+  category: string
 }
 
 export interface PathParams {
@@ -18,7 +17,7 @@ export interface PathParams {
 
 const postsDirectory = path.join(process.cwd(), "posts")
 
-export function getSortedPostsData(): Post[] {
+export function getSortedPostsData(category?: string): Post[] {
   // Get file names under /posts
   const fileNames = fs.readdirSync(postsDirectory)
   const allPostsData: Post[] = fileNames.map((fileName) => {
@@ -38,14 +37,19 @@ export function getSortedPostsData(): Post[] {
       ...matterResult.data,
     } as Post
   })
+
   // Sort posts by date
-  return allPostsData.sort((a, b) => {
+  const sorted = allPostsData.sort((a, b) => {
     if (a.date < b.date) {
       return 1
     } else {
       return -1
     }
   })
+  if (category) {
+    return sorted.filter((a) => a.category === category)
+  }
+  return sorted
 }
 
 export function getAllPostIds(): PathParams[] {
@@ -69,8 +73,14 @@ export async function getPostData(id?: string): Promise<Post> {
 
   // Use remark to convert markdown into HTML string
   const processedContent = await remark()
-    .use(html)
-    .use(highlight)
+    .use(require("remark-gfm"))
+    .use(require("remark-toc"))
+    .use(require("remark-slug"))
+    .use(require("remark-prism"), {
+      transformInlineCode: true,
+      plugins: ["diff-highlight"],
+    })
+    .use(require("remark-html"))
     .process(matterResult.content)
   const contentHtml = processedContent.toString()
 

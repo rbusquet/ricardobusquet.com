@@ -1,6 +1,5 @@
 import "../styles/global.css"
-import "highlight.js/lib/core"
-import "highlight.js/styles/a11y-light.css"
+import "../styles/prism.css"
 
 import type { AppProps } from "next/app"
 

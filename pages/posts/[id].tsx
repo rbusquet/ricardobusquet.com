@@ -1,4 +1,5 @@
 import Head from "next/head"
+import Link from "next/link"
 import type { GetStaticPaths, GetStaticProps, NextPage } from "next"
 import Layout from "../../components/layout"
 import { getAllPostIds, getPostData, Post } from "../../lib/posts"
@@ -17,6 +18,14 @@ const PostComponent: NextPage<Props> = ({ postData }) => (
     </Head>
     <article>
       <h1 className={utilStyles.headingXl}>{postData.title}</h1>
+      {postData.category ? (
+        <small>
+          Categories:{" "}
+          <Link href={`/categories/${postData.category}`}>
+            <a>{postData.category}</a>
+          </Link>
+        </small>
+      ) : null}
 
       {postData.contentHtml && (
         <div dangerouslySetInnerHTML={{ __html: postData.contentHtml }} />
