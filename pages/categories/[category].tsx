@@ -14,7 +14,7 @@ import Date from "../../components/date"
 
 interface Props {
   posts: Post[]
-  category: string
+  category?: string
 }
 
 const CategoryComponent: NextPage<Props> = ({ posts, category }) => (
@@ -64,7 +64,7 @@ export const getStaticPaths: GetStaticPaths<{
 
 export const getStaticProps: GetStaticProps<
   Props,
-  { category: string }
+  { category?: string }
 > = async ({ params }) => {
   const { category } = params || {}
   if (!category) {
