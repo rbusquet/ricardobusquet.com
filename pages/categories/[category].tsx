@@ -51,10 +51,9 @@ export const getStaticPaths: GetStaticPaths<{
   category: string
 }> = async () => {
   const posts = getSortedPostsData()
-  const categories = new Set(posts.map((p) => p.category).filter(Boolean))
-  console.log({ categories })
+  const categories = posts.map((p) => p.category).filter(Boolean)
   return {
-    paths: [...categories].map((c) => ({
+    paths: categories.map((c) => ({
       params: {
         category: c,
       },
