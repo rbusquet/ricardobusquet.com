@@ -1,4 +1,3 @@
-import Head from "next/head"
 import Link from "next/link"
 import type { GetStaticPaths, GetStaticProps, NextPage } from "next"
 import Layout from "../../components/layout"
@@ -6,6 +5,7 @@ import { getAllPostIds, getPostData, Post } from "../../lib/posts"
 import utilStyles from "../../styles/utils.module.css"
 
 import Date from "../../components/date"
+import { NextSeo } from "next-seo"
 
 interface Props {
   postData: Post
@@ -13,18 +13,29 @@ interface Props {
 
 const PostComponent: NextPage<Props> = ({ postData }) => (
   <Layout>
-    <Head>
-      <title>{postData.title}</title>
-      <meta name="description" content={postData.title} />
-    </Head>
+    <NextSeo
+      title={postData.title}
+      description={postData.title}
+      openGraph={{
+        type: "article",
+        url: `https://www.ricardobusquet.com/posts/${postData.id}`,
+        article: {
+          publishedTime: postData.date,
+          tags: postData.categories ?? [],
+          authors: ["https://twitter.com/@ricbusquet"],
+        },
+      }}
+    />
     <article>
       <h1 className={utilStyles.headingXl}>{postData.title}</h1>
-      {postData.category ? (
-        <small>
+      {postData.categories ? (
+        <small className={utilStyles.categories}>
           Categories:{" "}
-          <Link href={`/categories/${postData.category}`}>
-            <a>{postData.category}</a>
-          </Link>
+          {postData.categories.map((category) => (
+            <Link href={`/categories/${category}`}>
+              <a>{category}</a>
+            </Link>
+          ))}
         </small>
       ) : null}
 

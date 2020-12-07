@@ -1,13 +1,8 @@
-import Head from "next/head"
+import { NextSeo } from "next-seo"
 import Link from "next/link"
 import type { GetStaticPaths, GetStaticProps, NextPage } from "next"
 import Layout from "../../components/layout"
-import {
-  getAllPostIds,
-  getPostData,
-  getSortedPostsData,
-  Post,
-} from "../../lib/posts"
+import { getSortedPostsData, Post } from "../../lib/posts"
 import utilStyles from "../../styles/utils.module.css"
 
 import Date from "../../components/date"
@@ -19,9 +14,14 @@ interface Props {
 
 const CategoryComponent: NextPage<Props> = ({ posts, category }) => (
   <Layout>
-    <Head>
-      <title>{category ? `Posts tagged ${category}` : "oh, no"}</title>
-    </Head>
+    <NextSeo
+      title={category ? `Posts tagged ${category}` : "oh, no"}
+      description={category ? `Posts tagged ${category}` : "oh, no"}
+      openGraph={{
+        type: "website",
+        url: `https://www.ricardobusquet.com/categories/${category}`,
+      }}
+    />
     {category ? (
       <section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`}>
         <h2 className={utilStyles.headingLg}>
@@ -51,11 +51,14 @@ export const getStaticPaths: GetStaticPaths<{
   category: string
 }> = async () => {
   const posts = getSortedPostsData()
-  const categories = posts.map((p) => p.category).filter(Boolean)
+  const categories = posts
+    .map((p) => p.categories)
+    .flat()
+    .filter((e) => Boolean(e))
   return {
     paths: categories.map((c) => ({
       params: {
-        category: c,
+        category: c as string,
       },
     })),
     fallback: true,

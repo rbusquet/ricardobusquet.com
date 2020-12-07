@@ -50,3 +50,9 @@
 .lightText {
   color: #555;
 }
+
+.categories > :not(:last-child)::after {
+  content: ",";
+  text-decoration: none;
+  color: initial;
+}
