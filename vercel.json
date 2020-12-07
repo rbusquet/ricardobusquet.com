@@ -1,0 +1,8 @@
+{
+  "redirects": [
+    {
+      "source": "/posts/advent-of-code-first-week-review",
+      "destination": "/posts/advent-of-code-2020-solutions-review"
+    }
+  ]
+}
