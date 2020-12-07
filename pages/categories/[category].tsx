@@ -66,7 +66,7 @@ export const getStaticProps: GetStaticProps<
   Props,
   { category: string }
 > = async ({ params }) => {
-  const { category } = params
+  const { category } = params || {}
   if (!category) {
     return {
       props: {
