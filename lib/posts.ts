@@ -10,6 +10,8 @@ export interface Post {
   title: string
   contentHtml?: string
   categories?: string[]
+  showCover: boolean
+  credits: string
 }
 
 export interface PathParams {

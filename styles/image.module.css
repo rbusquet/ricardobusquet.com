@@ -1,0 +1,12 @@
+.container {
+  position: relative;
+  text-align-last: right;
+}
+.main {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.caption {
+  font-size: small;
+}

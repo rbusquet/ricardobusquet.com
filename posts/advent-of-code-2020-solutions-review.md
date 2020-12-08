@@ -4,6 +4,8 @@ date: "2020-12-06"
 categories:
   - advent-of-code
   - python
+showCover: true
+credits: Photo by <a href="https://unsplash.com/@markusspiske">Markus Spiske</a>
 ---
 
 Since 2018, every December, I ~~try to~~ work my way through [Advent of Code][aoc-about], a set of 25 puzzles revealed each day this month, until Christmas day. This has been around since 2015 (I also tried working on the earlier years, check all of my solutions in my [advent of code repo][aoc-repo]).
