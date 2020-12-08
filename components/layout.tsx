@@ -1,4 +1,3 @@
-import Head from "next/head"
 import Image from "next/image"
 import styles from "./layout.module.css"
 import utilStyles from "../styles/utils.module.css"
@@ -12,21 +11,8 @@ interface Props {
   ogImage?: string
 }
 
-const Layout: React.FC<Props> = ({ children, home = false, ogImage }) => (
+const Layout: React.FC<Props> = ({ children, home = false }) => (
   <div className={styles.container}>
-    <Head>
-      <link rel="icon" href="/favicon.ico" />
-      <meta name="description" content="Ricardo Busquet personal website" />
-      <meta name="og:title" content={siteTitle} />
-      <meta
-        name="og:image"
-        content={`https://${process.env.NEXT_PUBLIC_SITE_URL}${
-          ogImage || "/images/og_home.png"
-        }`}
-      />
-      <meta name="twitter:card" content="summary_large_image" />
-      <meta name="twitter:creator" content="@ricbusquet" />
-    </Head>
     <header className={styles.header}>
       {home ? (
         <>

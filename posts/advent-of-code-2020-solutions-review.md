@@ -1,7 +1,11 @@
 ---
 title: Advent of Code 2020 - Solutions review
 date: "2020-12-06"
-category: advent-of-code
+categories:
+  - advent-of-code
+  - python
+coverImage: advent-of-code-2020-solutions-review.jpg
+credits: Photo by <a href="https://unsplash.com/@markusspiske">Markus Spiske</a>
 ---
 
 Since 2018, every December, I ~~try to~~ work my way through [Advent of Code][aoc-about], a set of 25 puzzles revealed each day this month, until Christmas day. This has been around since 2015 (I also tried working on the earlier years, check all of my solutions in my [advent of code repo][aoc-repo]).
@@ -15,8 +19,6 @@ The puzzles vary in difficulty, getting harder through the month. This year, I'l
 I'll mainly use python for the solutions. It's the language I'm most proficient in, and this year it's been proving to have a lot of excellent tools to get cleaner results.
 
 We're on Day 6 at the time of writing, so I'll go over each day in this post, then update through the week. Follow along with me!
-
-### Table of Contents
 
 ### Day 1: Report Repair ([link][day-1])
 

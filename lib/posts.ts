@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 import fs from "fs"
 import path from "path"
 import matter from "gray-matter"
@@ -8,7 +9,9 @@ export interface Post {
   date: string
   title: string
   contentHtml?: string
-  category: string
+  categories?: string[]
+  coverImage: string
+  credits: string
 }
 
 export interface PathParams {
@@ -47,7 +50,7 @@ export function getSortedPostsData(category?: string): Post[] {
     }
   })
   if (category) {
-    return sorted.filter((a) => a.category === category)
+    return sorted.filter((a) => a.categories?.includes(category))
   }
   return sorted
 }
@@ -74,7 +77,6 @@ export async function getPostData(id?: string): Promise<Post> {
   // Use remark to convert markdown into HTML string
   const processedContent = await remark()
     .use(require("remark-gfm"))
-    .use(require("remark-toc"))
     .use(require("remark-slug"))
     .use(require("remark-prism"), {
       transformInlineCode: true,
