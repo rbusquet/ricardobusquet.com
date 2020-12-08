@@ -10,7 +10,7 @@ export interface Post {
   title: string
   contentHtml?: string
   categories?: string[]
-  showCover: boolean
+  coverImage: string
   credits: string
 }
 

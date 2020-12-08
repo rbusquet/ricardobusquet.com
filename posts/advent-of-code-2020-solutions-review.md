@@ -4,7 +4,7 @@ date: "2020-12-06"
 categories:
   - advent-of-code
   - python
-showCover: true
+coverImage: advent-of-code-2020-solutions-review.jpg
 credits: Photo by <a href="https://unsplash.com/@markusspiske">Markus Spiske</a>
 ---
 

@@ -15,20 +15,17 @@ interface Props {
 }
 
 function CoverImage({
-  show,
-  id,
+  image,
   baseUrl,
   credits,
 }: {
-  show: boolean
-  id: string
+  image: string
   baseUrl: string
   credits: string
 }) {
-  if (!show) return null
-
-  const cover = require(`covers/${id}.jpg?trace`)
-  const webp = require(`covers/${id}.jpg?webp`)
+  if (!image) return null
+  const cover = require(`covers/${image}?trace`)
+  const webp = require(`covers/${image}?webp`)
   return (
     <>
       <NextSeo
@@ -69,9 +66,8 @@ const PostComponent: NextPage<Props> = ({ postData, baseUrl }) => {
       />
       <article>
         <CoverImage
-          id={postData.id}
           baseUrl={baseUrl}
-          show={postData.showCover}
+          image={postData.coverImage}
           credits={postData.credits}
         />
         <h1 className={utilStyles.headingXl}>{postData.title}</h1>
