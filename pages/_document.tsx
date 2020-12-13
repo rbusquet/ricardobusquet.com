@@ -36,6 +36,21 @@ class MyDocument extends Document {
           />
           <link rel="manifest" href="/site.webmanifest" />
           <meta name="theme-color" content="#ffffff" />
+          <script
+            async
+            src="https://www.googletagmanager.com/gtag/js?id=G-Z22ND9F23B"
+          ></script>
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', '${process.env.GTAG}');
+`,
+            }}
+          />
         </Head>
         <body>
           <Main />
