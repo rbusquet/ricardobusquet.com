@@ -75,7 +75,7 @@ const PostComponent: NextPage<Props> = ({ postData, baseUrl }) => {
           <small className={utilStyles.categories}>
             Categories:{" "}
             {postData.categories.map((category) => (
-              <Link href={`/categories/${category}`}>
+              <Link key={category} href={`/categories/${category}`}>
                 <a>{category}</a>
               </Link>
             ))}
@@ -103,6 +103,7 @@ export const getStaticProps: GetStaticProps<Props, { id: string }> = async ({
   params,
 }) => {
   const postData = await getPostData(params?.id)
+
   return {
     props: {
       postData,

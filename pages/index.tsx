@@ -17,14 +17,23 @@ export const getStaticProps: GetStaticProps<Props> = async () => ({
 
 const Home: NextPage<Props> = ({ allPostsData }) => (
   <Layout home>
-    <section className={utilStyles.headingMd}>
+    <section>
       <p>
-        Hello, I'm <strong>Ricardo</strong>! I'm a software engineer from
-        Brazil. Currently living in the US. Find me on{" "}
-        <a href="https://twitter.com/@ricbusquet">twitter</a>!
+        Hello, I'm <strong>Ricardo</strong>! I'm a software engineer based in
+        New York. Born and raised in Brazil. Find me on{" "}
+        <a href="https://twitter.com/@ricbusquet">Twitter</a> or{" "}
+        <a href="https://github.com/rbusquet">GitHub</a>!
       </p>
     </section>
-    <section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`}>
+    <section>
+      <small>
+        You can also get in touch through{" "}
+        <a href="https://facebook.com/rbusquet">Facebook</a> and{" "}
+        <a href="https://www.linkedin.com/in/rbusquet/">Linkedin</a>. Or just
+        shoot me an <a href="mailto:hello@rbusquet.dev">email</a>.
+      </small>
+    </section>
+    <section className={`${utilStyles.padding1px}`}>
       <h2 className={utilStyles.headingLg}>Blog</h2>
       <ul className={utilStyles.list}>
         {allPostsData.map(({ id, date, title }) => (
