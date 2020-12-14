@@ -8,6 +8,8 @@ coverImage: advent-of-code-2020-solutions-review.jpg
 credits: Photo by <a href="https://unsplash.com/@markusspiske">Markus Spiske</a>
 ---
 
+[[Day 1]](#day-1-report-repair-link) [[Day 2]](#day-2-password-philosophy-link) [[Day 3]](#day-3-toboggan-trajectory-link) [[Day 4]](#day-4-passport-processing-link) [[Day 5]](#day-5-binary-boarding) [[Day 6]](#day-6-custom-customs)
+
 Since 2018, every December, I ~~try to~~ work my way through [Advent of Code][aoc-about], a set of 25 puzzles revealed each day this month, until Christmas day. This has been around since 2015 (I also tried working on the earlier years, check all of my solutions in my [advent of code repo][aoc-repo]).
 
 A short description from their about page:
@@ -169,12 +171,227 @@ vals = [
 print(reduce(mul, vals))
 ```
 
+### Day 4: Passport Processing ([link][day-4])
+
+This one felt like work. We're tasked with validating passports, and checking if they have the required fields. Fields are those of a common passport (date of birth, issue date, country, etc.). Country is not required because "North Pole Credentials aren't issued by a country".
+
+I used [dataclasses][dataclasses] and read the input file, passing the a key-value map of the results to the auto-generated constructor. If any of the required arguments were missing, the constructor would raise an exception, which I catch and skip the passport as invalid.
+
+```python
+@dataclass
+class Passport:
+    byr: str  # Birth Year
+    iyr: str  # Issue Year
+    eyr: str  # Expiration Year
+    hgt: str  # Height
+    hcl: str  # Hair Color
+    ecl: str  # Eye Color
+    pid: str  # Passport ID
+    cid: str = ""  # country. The assignment at the class definition will make this field not required
+
+def part_1():
+    passports = []
+    p = {}
+    for line in read_file():
+        if not line.strip():
+            try:
+                passports.append(Passport(**p))
+            except TypeError:
+                continue
+            finally:
+                p = {}
+            continue
+        values = line.strip().split(" ")
+        for value in values:
+            k, v = value.split(":")
+            p[k] = v
+    # last line
+    passports.append(Passport(**p))
+    return passports
+
+first_pass_valid = part_1()
+print(len(first_pass_valid))
+```
+
+Part 2 extends the validation. So I just added a `validate` method to the passport dataclass and called for the valid passports on part 1.
+
+```python
+@dataclass
+class Passport:
+    # fields...
+
+    def validate(self):
+        assert 1920 <= int(self.byr) <= 2002
+        assert 2010 <= int(self.iyr) <= 2020
+        assert 2020 <= int(self.eyr) <= 2030
+        h, unit = size_re.match(self.hgt).groups()
+        if unit == "cm":
+            assert 150 <= int(h) <= 193
+        else:
+            assert 59 <= int(h) <= 76
+        assert hair_re.match(self.hcl)
+        assert self.ecl in ["amb", "blu", "brn", "gry", "grn", "hzl", "oth"]
+        assert pid_re.match(self.pid)
+
+# ... part 1
+
+valid = 0
+for passport in first_pass_valid:
+    try:
+        passport.validate()
+        valid += 1
+    except Exception:
+        print(passport)
+        continue
+
+print(valid)
+```
+
+I almost skipped this one. This looks too much like my day-to-day work (validate forms for business logic and save is the bread and butter of web applications nowadays).
+
+### Day 5: Binary Boarding
+
+This was a fun one. I should've noticed by the name of today's puzzle there was an easier solution than almost writing verbatim the puzzle rules. Today we're looking through a list of boarding passes and "decoding" the seat IDs from the passes codes. From the day instructions, 'a seat might be specified like FBFBBFFRLR, where F means "front", B means "back", L means "left", and R means "right"'. This defines a `binary space partitioning`. I then proceeded to write the algorithm exactly like the puzzle described. Part 1 was asking to submit the highest seat ID. So here's the implementation:
+
+```python
+
+def partition(code: str, count: int, lower_ch: str, upper_ch: str) -> int:
+    left = 0
+    right = 2 ** count
+
+    for i in range(count):  # for each char in the code
+        ch = code[i]
+        mid = (right + left) // 2  # split the current length in two groups
+        if ch == lower_ch:
+            # if the char represent the "lower half" of the current region, move
+            # the right pointer to the middle
+            right = mid
+        elif ch == upper_ch:
+            # else, move the left pointer to the middle
+            left = mid
+    # you'll either end with the same number or there will be a difference
+    # of 1. Return the minimum.
+    return min(left, right)
+
+def part_1():
+    max_id = 0
+    for code in read_file():
+        # First 7 letters represent the row
+        row = partition(code[:7], 7, "F", "B")
+        # last 3 represent the colums
+        col = partition(code[-3:], 3, "L", "R")
+        seat_id = row * 8 + col
+        if seat_id > max_id:
+            max_id = seat_id
+    return max_id
+```
+
+When discussing with colleagues about day 5 solutions, one of them pointed out the rules were just the steps to transform a binary number into its base-10 representation, where "F"/"B" and "L"/"R" are "0" and "1". The `int` constructor in python can cast string representation of numbers in any base, which you can set as the second parameter. So `int("1001", 2)` will return `9`.
+
+```python
+def to_int(code, zero, one):
+    code = code.replace(zero, "0").replace(one, "1")
+    return int(code, base=2)
+
+# ...
+    for code in read_file():
+        row = to_int(code[:7], "F", "B")
+        col = to_int(code[-3:], "L", "R")
+        seat_id = row * 8 + col
+```
+
+Neat.
+
+For part 2, we want to find the only missing seat ID in the list (the story character lost their boarding pass!). I could not for the life of me figure out how to do that. The puzzle states the "back" and the "front" of the airplane are empty, so you need to find the empty spot in the "middle". I went with the first idea in my mind: let's visualize the airplane after all seats are filled, print out the column and row, and manually find the seat ID.
+
+```python
+def part_2_visualization():
+    """
+    Will print something like this with my input
+    ...
+    086 -> ['#', '#', '#', '#', '#', '#', '#', '#']
+    087 -> ['#', '#', '#', '#', '#', '#', '#', '#']
+    088 -> ['#', '.', '#', '#', '#', '#', '#', '#']
+    089 -> ['#', '#', '#', '#', '#', '#', '#', '#']
+    090 -> ['#', '#', '#', '#', '#', '#', '#', '#']
+    ...
+    meaning the free seat is in row 88, col 1.
+    """
+    aircraft = [["." for _ in range(8)] for _ in range(128)]
+    for code in read_file():
+        row = partition(code[:7], 7, "F", "B")
+        col = partition(code[-3:], 3, "L", "R")
+        aircraft[row][col] = "#"
+    for i, x in enumerate(aircraft):
+        print("{:0>3} -> {}".format(i, x))
+```
+
+Again, talking with colleagues made me understand a programatic solution. It's given that the plane is full. The ID formula is `row * 8 + col`. The airplane has 8 columns, so seats in the same row will all share the first "piece" of this equation, with the "col" making these ids map to all integers from 0 to 1024 (127 \* 8 + 8). With all the ids calculated, I just need to find the difference between the ids I have and the set of all possible ids.
+
+```python
+def part_2_for_real_now():
+    ids = set()
+    for code in read_file():
+        row = partition(code[:7], 7, "F", "B")
+        col = partition(code[-3:], 3, "L", "R")
+
+        ids.add(row * 8 + col)
+    # all possible IDs are between the first and last
+    # non-empty seat
+    seat = set(range(min(ids), max(ids))) - ids
+    return seat.pop()
+```
+
+### Day 6: Custom Customs
+
+This day was an exercise on python's [`Counter`][counter] data structure. The input represents questions (marked a to z) people answered "yes" to in a customs declaration form, and for part 1, we're interested in finding how many questions any individual in a group of people answered "yes" to. Each line is an individual, and groups are separated by an empty line.
+
+Ah! Also since this day, I stopped separating the puzzles by parts. I'll just write the solutions and separate into functions the repeat bits for better organization.
+
+So I just pass each line to a `Counter` instance, and add them up for each group. `Counter` implements addition so `Counter('abc') + Counter('cde')` will be equivalent to the dictionary `{'c': 2, 'a': 1, 'b': 1, 'd': 1, 'e': 1}` (not the key `c` has value `2`, because they appear in both sides of the addition).
+
+```python
+groups = []
+current_group = Counter()
+group_size = 0
+for line in read_file():
+    if line:
+        current_group += Counter(line)
+        group_size += 1
+    else:
+        groups.append([current_group, group_size])
+        current_group = Counter()
+        group_size = 0
+
+print("--- part 1 ---")
+# the "length" of each group counter is the amont of unique answers for that group.
+# I could use a `set` here: the actual count is not important for part 1
+print(sum(map(lambda c: len(c[0]), groups)))
+```
+
+Using `Counter`s made part 2 super easy. We learn that we don't want to count how many questions _anyone_ answered "yes", but the ones where _everyone_ in the group answered yes.
+
+So for each group captured in part 1, I call `most_common()` in the counter, which will return each letter sorted by their count in decrescent order. If the count is the same as the size of the group, this letter represents the question all individuals answered "yes" to.
+
+```python
+total_count = 0
+for group, count in groups:
+    for _, ans_count in group.most_common():
+        if ans_count == count:
+            total_count += 1
+        else:
+            break
+
+print(total_count)
+```
+
 [aoc-about]: https://adventofcode.com/about
 [aoc-repo]: https://github.com/rbusquet/advent-of-code
 [day-1]: https://adventofcode.com/2020/day/1
 [day-2]: https://adventofcode.com/2020/day/2
 [day-3]: https://adventofcode.com/2020/day/3
 [day-4]: https://adventofcode.com/2020/day/4
+[day-5]: https://adventofcode.com/2020/day/5
 [combinations]: https://docs.python.org/3.8/library/itertools.html?#itertools.combinations
 [count]: https://docs.python.org/3.8/library/itertools.html?#itertools.count
 [triplet-sum]: https://www.geeksforgeeks.org/find-a-triplet-that-sum-to-a-given-value/

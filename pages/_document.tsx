@@ -18,6 +18,12 @@ class MyDocument extends Document {
       <Html lang="en">
         <Head>
           <link
+            rel="alternate"
+            type="application/rss+xml"
+            title="RSS for blog posts"
+            href="https://www.ricardobusquet.com/rss.xml"
+          />
+          <link
             rel="apple-touch-icon"
             sizes="180x180"
             href="/apple-touch-icon.png"
@@ -38,7 +44,7 @@ class MyDocument extends Document {
           <meta name="theme-color" content="#ffffff" />
           <script
             async
-            src="https://www.googletagmanager.com/gtag/js?id=G-Z22ND9F23B"
+            src={`https://www.googletagmanager.com/gtag/js?id=${process.env.GTAG}`}
           ></script>
           <script
             dangerouslySetInnerHTML={{
