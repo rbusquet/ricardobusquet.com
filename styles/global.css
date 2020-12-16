@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Merriweather&display=swap");
+@import "highlight.js/styles/zenburn.css";
 
 html,
 body {
@@ -36,4 +37,18 @@ blockquote {
 }
 blockquote p {
   display: inline;
+}
+
+code {
+  border-radius: 5px;
+  font-size: 90%;
+  font-family: SFMono, Consolas, Monaco, "Courier New", Courier, monospace;
+}
+
+code:not(.hljs) {
+  border-radius: 5px;
+  color: #1f1f3f;
+  background: #dcdcdc;
+  max-width: 100%;
+  padding: 0.1em 0.25em;
 }

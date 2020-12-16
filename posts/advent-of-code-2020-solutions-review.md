@@ -78,7 +78,7 @@ best_performance_part_two(sorted(report))
 
 On day 2, we're tasked with processing a list of passwords and checking if they follow a set policy. Each line of the input gives the policy and the password to check. The password policy indicates the lowest and highest number of times a given letter must appear for the password to be valid. A valid input looks like this:
 
-```
+```plaintext
 1-3 a: abcde
 1-3 b: cdefg
 2-9 c: ccccccccc

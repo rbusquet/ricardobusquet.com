@@ -78,10 +78,7 @@ export async function getPostData(id?: string): Promise<Post> {
   const processedContent = await remark()
     .use(require("remark-gfm"))
     .use(require("remark-slug"))
-    .use(require("remark-prism"), {
-      transformInlineCode: true,
-      plugins: ["diff-highlight"],
-    })
+    .use(require("remark-highlight.js"))
     .use(require("remark-html"))
     .process(matterResult.content)
   const contentHtml = processedContent.toString()
