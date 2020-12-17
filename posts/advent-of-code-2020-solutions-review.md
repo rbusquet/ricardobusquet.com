@@ -348,7 +348,7 @@ This day was an exercise on python's [`Counter`][counter] data structure. The in
 
 Ah! Also since this day, I stopped separating the puzzles by parts. I'll just write the solutions and separate into functions the repeat bits for better organization.
 
-So I just pass each line to a `Counter` instance, and add them up for each group. `Counter` implements addition so `Counter('abc') + Counter('cde')` will be equivalent to the dictionary `{'c': 2, 'a': 1, 'b': 1, 'd': 1, 'e': 1}` (not the key `c` has value `2`, because they appear in both sides of the addition).
+So I just pass each line to a `Counter` instance, and add them up for each group. `Counter` implements addition so `Counter('abc') + Counter('cde')` will be equivalent to the dictionary `{'c': 2, 'a': 1, 'b': 1, 'd': 1, 'e': 1}` (note the key `c` has value `2`, because it appears in both sides of the sum).
 
 ```python
 groups = []
