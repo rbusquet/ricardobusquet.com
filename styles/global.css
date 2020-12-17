@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Merriweather&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital@0;1&family=Merriweather:ital@0;1&display=swap');
 @import "highlight.js/styles/zenburn.css";
 
 html,
@@ -42,7 +42,7 @@ blockquote p {
 code {
   border-radius: 5px;
   font-size: 90%;
-  font-family: SFMono, Consolas, Monaco, "Courier New", Courier, monospace;
+  font-family: "JetBrains Mono", monospace;
 }
 
 code:not(.hljs) {
