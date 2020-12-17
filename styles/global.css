@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital@0;1&family=Merriweather:ital@0;1&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,700;1,400;1,700&family=Merriweather:ital,wght@0,400;0,700;1,400;1,700&display=swap");
 @import "highlight.js/styles/zenburn.css";
 
 html,
@@ -43,6 +43,7 @@ code {
   border-radius: 5px;
   font-size: 90%;
   font-family: "JetBrains Mono", monospace;
+  font-variant-ligatures: none;
 }
 
 code:not(.hljs) {
@@ -51,4 +52,24 @@ code:not(.hljs) {
   background: #dcdcdc;
   max-width: 100%;
   padding: 0.1em 0.25em;
+}
+
+/* adds some italics */
+.hljs-keyword,
+.hljs-built_in,
+.hljs-title,
+.hljs-comment,
+.hljs-quote,
+.hljs-selector-class,
+.hljs-selector-attr,
+.hljs-selector-pseudo,
+.hljs-addition,
+.hljs-deletion {
+  font-style: italic;
+}
+
+.hljs-selector-class,
+.hljs-link,
+.hljs-string {
+  font-weight: bold;
 }
