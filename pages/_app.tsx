@@ -1,6 +1,6 @@
 import { DefaultSeo } from "next-seo"
 
-import "../styles/global.css"
+import "@exampledev/new.css"
 
 import SEO from "../seo.json"
 

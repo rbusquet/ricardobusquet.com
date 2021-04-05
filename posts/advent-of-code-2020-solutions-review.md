@@ -254,7 +254,6 @@ I almost skipped this one. This looks too much like my day-to-day work (validate
 This was a fun one. I should've noticed by the name of today's puzzle there was an easier solution than almost writing verbatim the puzzle rules. Today we're looking through a list of boarding passes and "decoding" the seat IDs from the passes codes. From the day instructions, 'a seat might be specified like FBFBBFFRLR, where F means "front", B means "back", L means "left", and R means "right"'. This defines a `binary space partitioning`. I then proceeded to write the algorithm exactly like the puzzle described. Part 1 was asking to submit the highest seat ID. So here's the implementation:
 
 ```python
-
 def partition(code: str, count: int, lower_ch: str, upper_ch: str) -> int:
     left = 0
     right = 2 ** count

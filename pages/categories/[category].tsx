@@ -3,7 +3,6 @@ import Link from "next/link"
 import type { GetStaticPaths, GetStaticProps, NextPage } from "next"
 import Layout from "../../components/layout"
 import { getSortedPostsData, Post } from "../../lib/posts"
-import utilStyles from "../../styles/utils.module.css"
 
 import Date from "../../components/date"
 
@@ -23,18 +22,16 @@ const CategoryComponent: NextPage<Props> = ({ posts, category }) => (
       }}
     />
     {category ? (
-      <section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`}>
-        <h2 className={utilStyles.headingLg}>
-          Posts tagged <code>{category}</code>
-        </h2>
-        <ul className={utilStyles.list}>
+      <section>
+        <h1>Posts tagged "{category}"</h1>
+        <ul>
           {posts.map(({ id, date, title }) => (
-            <li className={utilStyles.listItem} key={id}>
+            <li key={id}>
               <Link href={`/posts/${id}`}>
                 <a>{title}</a>
               </Link>
               <br />
-              <small className={utilStyles.lightText}>
+              <small>
                 <Date dateString={date} />
               </small>
             </li>

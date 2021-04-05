@@ -59,6 +59,14 @@ class MyDocument extends Document {
 `,
             }}
           />
+          <link
+            rel="stylesheet"
+            href="https://fonts.xz.style/serve/inter.css"
+          />
+          <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css"
+          />
         </Head>
         <body>
           <Main />
