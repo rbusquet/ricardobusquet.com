@@ -9,6 +9,9 @@ import slug from "rehype-slug"
 // @ts-expect-error missing type def
 import highlight from "rehype-highlight"
 import katex from "rehype-katex"
+// @ts-expect-error missing type def
+import emoji from "remark-emoji"
+import { rehypeAccessibleEmojis } from "rehype-accessible-emojis"
 
 export interface Post {
   id: string
@@ -73,8 +76,8 @@ export function getAllPostIds(): PathParams[] {
   })
 }
 
-const REMARK_PLUGINS = [math, gfm]
-const REHYPE_PLUGINS = [slug, highlight, katex]
+const REMARK_PLUGINS = [math, gfm, emoji]
+const REHYPE_PLUGINS = [slug, highlight, katex, rehypeAccessibleEmojis]
 
 export async function getPostData(id?: string): Promise<Post> {
   const fullPath = path.join(postsDirectory, `${id}.md`)
