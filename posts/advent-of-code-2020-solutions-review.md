@@ -64,7 +64,7 @@ def part_one_combinations():
     solve_with_combinations(report, 3)
 ```
 
-Python will generate the combinations in a complexity better than $O(n^2)$ or $O(n^3)$, but I found out I could get $O(n^2)$ for part two. The solution involves sorting the list beforehand, then using a two-pointer technique: for each number in the list, I keep a pointer to the next number and the last of the list. If the sum is more than 2020, I decrease the end pointer to reduce the sum. If it's less than 2020, I increase the first pointer to get a larger sum. I repeat it for each item until I find all 3 numbers that match the requirements. I had to do a bit of research, so here's [the source][triplet-sum].
+Python will generate the combinations in a complexity better than O(n<sup>2</sup>) or O(n<sup>3</sup>), but I found out I could get O(n<sup>2</sup>) for part two. The solution involves sorting the list beforehand, then using a two-pointer technique: for each number in the list, I keep a pointer to the next number and the last of the list. If the sum is more than 2020, I decrease the end pointer to reduce the sum. If it's less than 2020, I increase the first pointer to get a larger sum. I repeat it for each item until I find all 3 numbers that match the requirements. I had to do a bit of research, so here's [the source][triplet-sum].
 
 ```python
 def best_performance_part_two(report):
@@ -341,7 +341,7 @@ def part_2_visualization():
         print("{:0>3} -> {}".format(i, x))
 ```
 
-Again, talking with colleagues made me understand a programatic solution. It's given that the plane is full. The ID formula is `row * 8 + col`. The airplane has 8 columns, so seats in the same row will all share the first "piece" of this equation, with the "col" making these ids map to all integers from 0 to 1024 (127 \* 8 + 8). With all the ids calculated, I just need to find the difference between the ids I have and the set of all possible ids.
+Again, talking with colleagues made me understand a programatic solution. It's given that the plane is full. The ID formula is `row * 8 + col`. The airplane has 8 columns, so seats in the same row will all share the first "piece" of this equation, with the "col" making these ids map to all integers from 0 to 1024 (127 x 8 + 8). With all the ids calculated, I just need to find the difference between the ids I have and the set of all possible ids.
 
 ```python
 def part_2_for_real_now():

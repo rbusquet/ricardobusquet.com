@@ -2,13 +2,11 @@ import fs from "fs"
 import path from "path"
 import matter from "gray-matter"
 import { bundleMDX } from "mdx-bundler"
-import math from "remark-math"
 import gfm from "remark-gfm"
 
 import slug from "rehype-slug"
 // @ts-expect-error missing type def
 import highlight from "rehype-highlight"
-import katex from "rehype-katex"
 // @ts-expect-error missing type def
 import emoji from "remark-emoji"
 import { rehypeAccessibleEmojis } from "rehype-accessible-emojis"
@@ -76,8 +74,8 @@ export function getAllPostIds(): PathParams[] {
   })
 }
 
-const REMARK_PLUGINS = [math, gfm, emoji]
-const REHYPE_PLUGINS = [slug, highlight, katex, rehypeAccessibleEmojis]
+const REMARK_PLUGINS = [gfm, emoji]
+const REHYPE_PLUGINS = [slug, highlight, rehypeAccessibleEmojis]
 
 export async function getPostData(id?: string): Promise<Post> {
   const fullPath = path.join(postsDirectory, `${id}.md`)
