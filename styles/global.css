@@ -40,7 +40,6 @@ blockquote p {
   display: inline;
 }
 
-pre,
 code {
   border-radius: 5px;
   font-size: 90%;
@@ -48,9 +47,30 @@ code {
   font-variant-ligatures: none;
 }
 
-code {
+code:not(.hljs) {
+  border-radius: 5px;
   color: #1f1f3f;
   background: #dcdcdc;
   max-width: 100%;
   padding: 0.1em 0.25em;
+}
+
+/* adds some italics */
+.hljs-keyword,
+.hljs-built_in,
+.hljs-title,
+.hljs-comment,
+.hljs-quote,
+.hljs-selector-class,
+.hljs-selector-attr,
+.hljs-selector-pseudo,
+.hljs-addition,
+.hljs-deletion {
+  font-style: italic;
+}
+
+.hljs-selector-class,
+.hljs-link,
+.hljs-string {
+  font-weight: bold;
 }

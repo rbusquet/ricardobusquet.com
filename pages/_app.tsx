@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { DefaultSeo } from "next-seo"
 
 import "../styles/global.css"

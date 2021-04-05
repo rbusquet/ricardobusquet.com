@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
 import { useMemo } from "react"
 import Link from "next/link"
 import type { GetStaticPaths, GetStaticProps, NextPage } from "next"
@@ -27,8 +26,11 @@ function CoverImage({
   credits: string
 }) {
   if (!image) return null
+  /* eslint-disable @typescript-eslint/no-var-requires */
   const cover = require(`covers/${image}?trace`)
   const webp = require(`covers/${image}?webp`)
+  /* eslint-enable @typescript-eslint/no-var-requires */
+
   return (
     <>
       <NextSeo
