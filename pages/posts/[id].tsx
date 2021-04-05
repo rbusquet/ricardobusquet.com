@@ -1,6 +1,8 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
+import { useMemo } from "react"
 import Link from "next/link"
 import type { GetStaticPaths, GetStaticProps, NextPage } from "next"
+import { getMDXComponent } from "mdx-bundler/client"
+
 import Layout from "../../components/layout"
 import { getAllPostIds, getPostData, Post } from "../../lib/posts"
 import utilStyles from "../../styles/utils.module.css"
@@ -24,8 +26,11 @@ function CoverImage({
   credits: string
 }) {
   if (!image) return null
+  /* eslint-disable @typescript-eslint/no-var-requires */
   const cover = require(`covers/${image}?trace`)
   const webp = require(`covers/${image}?webp`)
+  /* eslint-enable @typescript-eslint/no-var-requires */
+
   return (
     <>
       <NextSeo
@@ -49,6 +54,10 @@ function CoverImage({
 }
 
 const PostComponent: NextPage<Props> = ({ postData, baseUrl }) => {
+  const Component = useMemo(() => getMDXComponent(postData.code), [
+    postData.code,
+  ])
+
   return (
     <Layout>
       <NextSeo
@@ -82,9 +91,7 @@ const PostComponent: NextPage<Props> = ({ postData, baseUrl }) => {
           </small>
         ) : null}
 
-        {postData.contentHtml && (
-          <div dangerouslySetInnerHTML={{ __html: postData.contentHtml }} />
-        )}
+        <Component />
 
         <small className={utilStyles.lightText}>
           <Date dateString={postData.date} />

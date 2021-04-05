@@ -1,14 +1,20 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
 import fs from "fs"
 import path from "path"
 import matter from "gray-matter"
-import remark from "remark"
+import { bundleMDX } from "mdx-bundler"
+import math from "remark-math"
+import gfm from "remark-gfm"
+
+import slug from "rehype-slug"
+// @ts-expect-error missing type def
+import highlight from "rehype-highlight"
+import katex from "rehype-katex"
 
 export interface Post {
   id: string
   date: string
   title: string
-  contentHtml?: string
+  code: string
   categories?: string[]
   coverImage: string
   credits: string
@@ -67,28 +73,32 @@ export function getAllPostIds(): PathParams[] {
   })
 }
 
+const REMARK_PLUGINS = [math, gfm]
+const REHYPE_PLUGINS = [slug, highlight, katex]
+
 export async function getPostData(id?: string): Promise<Post> {
   const fullPath = path.join(postsDirectory, `${id}.md`)
   const fileContents = fs.readFileSync(fullPath, "utf8")
 
-  // Use gray-matter to parse the post metadata section
-  const matterResult = matter(fileContents)
+  const { code, frontmatter } = await bundleMDX(fileContents, {
+    xdmOptions(input, options) {
+      // this is the recommended way to add custom remark/rehype plugins:
+      // The syntax might look weird, but it protects you in case we add/remove
+      // plugins in the future.
+      options.remarkPlugins = [
+        ...(options.remarkPlugins ?? []),
+        ...REMARK_PLUGINS,
+      ]
+      options.rehypePlugins = [
+        ...(options.rehypePlugins ?? []),
+        ...REHYPE_PLUGINS,
+      ]
 
-  // Use remark to convert markdown into HTML string
-  const processedContent = await remark()
-    .use(require("remark-gfm"))
-    .use(require("remark-slug"))
-    .use(require("remark-highlight.js"))
-    .use(require("remark-html"))
-    .process(matterResult.content)
-  const contentHtml = processedContent.toString()
-
-  // Combine the data with the id and contentHtml
-
-  // Combine the data with the id
+      return options
+    },
+  })
   return {
-    id,
-    contentHtml,
-    ...matterResult.data,
+    code,
+    ...frontmatter,
   } as Post
 }
