@@ -75,7 +75,7 @@ export function getAllPostIds(): PathParams[] {
 }
 
 const REMARK_PLUGINS = [math, gfm]
-const REHYPE_PLUGINS = [slug, katex]
+const REHYPE_PLUGINS = [slug, highlight, katex]
 
 export async function getPostData(id?: string): Promise<Post> {
   const fullPath = path.join(postsDirectory, `${id}.md`)

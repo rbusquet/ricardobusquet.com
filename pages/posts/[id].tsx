@@ -10,7 +10,6 @@ import utilStyles from "../../styles/utils.module.css"
 import imgStyles from "../../styles/image.module.css"
 
 import Date from "../../components/date"
-import components from "../../components/mdx"
 import { NextSeo } from "next-seo"
 
 interface Props {
@@ -90,7 +89,7 @@ const PostComponent: NextPage<Props> = ({ postData, baseUrl }) => {
           </small>
         ) : null}
 
-        <Component components={components} />
+        <Component />
 
         <small className={utilStyles.lightText}>
           <Date dateString={postData.date} />
