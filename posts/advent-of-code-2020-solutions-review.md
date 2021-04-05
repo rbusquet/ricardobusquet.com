@@ -54,7 +54,7 @@ def part_one_combinations():
     solve_with_combinations(report, 3)
 ```
 
-Python will generate the combinations in a complexity better than O(n^2) or O(n^3), but I found out I could get O(n^2) for part two. The solution involves sorting the list beforehand, then using a two-pointer technique: for each number in the list, I keep a pointer to the next number and the last of the list. If the sum is more than 2020, I decrease the end pointer to reduce the sum. If it's less than 2020, I increase the first pointer to get a larger sum. I repeat it for each item until I find all 3 numbers that match the requirements. I had to do a bit of research, so here's [the source][triplet-sum].
+Python will generate the combinations in a complexity better than $O(n^2)$ or $O(n^3)$, but I found out I could get $O(n^2)$ for part two. The solution involves sorting the list beforehand, then using a two-pointer technique: for each number in the list, I keep a pointer to the next number and the last of the list. If the sum is more than 2020, I decrease the end pointer to reduce the sum. If it's less than 2020, I increase the first pointer to get a larger sum. I repeat it for each item until I find all 3 numbers that match the requirements. I had to do a bit of research, so here's [the source][triplet-sum].
 
 ```python
 def best_performance_part_two(report):
