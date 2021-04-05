@@ -8,7 +8,15 @@ coverImage: advent-of-code-2020-solutions-review.jpg
 credits: Photo by <a href="https://unsplash.com/@markusspiske">Markus Spiske</a>
 ---
 
-[[Day 1]](#day-1-report-repair-link) [[Day 2]](#day-2-password-philosophy-link) [[Day 3]](#day-3-toboggan-trajectory-link) [[Day 4]](#day-4-passport-processing-link) [[Day 5]](#day-5-binary-boarding) [[Day 6]](#day-6-custom-customs)
+#### Solved challenges
+
+- [Day 1: Report Repair](#day-1-report-repair)
+- [Day 2: Password Philosophy](#day-2-password-philosophy)
+- [Day 3: Toboggan Trajectory](#day-3-toboggan-trajectory)
+- [Day 4: Passport Processing](#day-4-passport-processing)
+- [Day 5: Binary Boarding](#day-5-binary-boarding)
+- [Day 6: Custom Customs](#day-6-custom-customs)
+- [Day 17: Conway Cubes](#day-17-conway-cubes)
 
 Since 2018, every December, I ~~try to~~ work my way through [Advent of Code][aoc-about], a set of 25 puzzles revealed each day this month, until Christmas day. This has been around since 2015 (I also tried working on the earlier years, check all of my solutions in my [advent of code repo][aoc-repo]).
 
@@ -22,7 +30,9 @@ I'll mainly use python for the solutions. It's the language I'm most proficient 
 
 We're on Day 6 at the time of writing, so I'll go over each day in this post, then update through the week. Follow along with me!
 
-### Day 1: Report Repair ([link][day-1])
+## Day 1: Report Repair
+
+<small>[Go to challenge][day-1]</small>
 
 TO START: I absolutely love the stories every year. Every year, the main character is an elf, tasked with _saving Christmas_. This year though, we're going on a vacation. Christmas is safe! Some good news this year, at last :)
 
@@ -74,7 +84,9 @@ def best_performance_part_two(report):
 best_performance_part_two(sorted(report))
 ```
 
-### Day 2: Password Philosophy ([link][day-2])
+## Day 2: Password Philosophy
+
+<small>[Go to challenge][day-2]</small>
 
 On day 2, we're tasked with processing a list of passwords and checking if they follow a set policy. Each line of the input gives the policy and the password to check. The password policy indicates the lowest and highest number of times a given letter must appear for the password to be valid. A valid input looks like this:
 
@@ -119,7 +131,9 @@ def part_two(passwords: List[str]):
     return valid
 ```
 
-### Day 3: Toboggan Trajectory ([link][day-3])
+## Day 3: Toboggan Trajectory
+
+<small>[Go to challenge][day-3]</small>
 
 In this one, the puzzle input is a section of a "map", where the `.` represent empty spaces and `#` represents a tree, representing the geography of an area you're going to be sliding with a [Toboggan][toboggan]. You want to find a slope in the map where you're finding the smaller amount of trees (steering is hard in this area!).
 
@@ -171,7 +185,9 @@ vals = [
 print(reduce(mul, vals))
 ```
 
-### Day 4: Passport Processing ([link][day-4])
+## Day 4: Passport Processing
+
+<small>[Go to challenge][day-4]</small>
 
 This one felt like work. We're tasked with validating passports, and checking if they have the required fields. Fields are those of a common passport (date of birth, issue date, country, etc.). Country is not required because "North Pole Credentials aren't issued by a country".
 
@@ -249,7 +265,7 @@ print(valid)
 
 I almost skipped this one. This looks too much like my day-to-day work (validate forms for business logic and save is the bread and butter of web applications nowadays).
 
-### Day 5: Binary Boarding
+## Day 5: Binary Boarding
 
 This was a fun one. I should've noticed by the name of today's puzzle there was an easier solution than almost writing verbatim the puzzle rules. Today we're looking through a list of boarding passes and "decoding" the seat IDs from the passes codes. From the day instructions, 'a seat might be specified like FBFBBFFRLR, where F means "front", B means "back", L means "left", and R means "right"'. This defines a `binary space partitioning`. I then proceeded to write the algorithm exactly like the puzzle described. Part 1 was asking to submit the highest seat ID. So here's the implementation:
 
@@ -341,7 +357,7 @@ def part_2_for_real_now():
     return seat.pop()
 ```
 
-### Day 6: Custom Customs
+## Day 6: Custom Customs
 
 This day was an exercise on python's [`Counter`][counter] data structure. The input represents questions (marked a to z) people answered "yes" to in a customs declaration form, and for part 1, we're interested in finding how many questions any individual in a group of people answered "yes" to. Each line is an individual, and groups are separated by an empty line.
 
@@ -384,6 +400,142 @@ for group, count in groups:
 print(total_count)
 ```
 
+# Day 17: Conway Cubes
+
+The title says it all: we're dealing with [Conway's Game of Life][game-of-life]. The input is a two-dimensional slice of a three-dimensional grid of "cubes" that can either active or inactive. Cubes change their state in cycles, considering the state of their neighbors. In three-dimensional space, each cube has a total of 26 neighbors (a 3x3x3 integer region in this space). The rules are the general of Conway's game of life:
+
+- If a cube is active and exactly 2 or 3 of its neighbors are also active, the cube remains active. Otherwise, the cube becomes inactive.
+- If a cube is inactive but exactly 3 of its neighbors are active, the cube becomes active. Otherwise, the cube remains inactive.
+
+All the puzzle is asking is how many cubes will be active after 6 cycles.
+
+I borrowed the "neighbors" processing from day 11 adjacent seat calculation and extrapolated for N dimensions. I thought we were either using this in a future puzzle, or there would be more dimensions in part 2.
+
+```python
+from itertools import product
+
+def neighborhood(*position: int) -> Iterator[Tuple[int]]:
+    """
+    Returns all "integer" neighbors of a point in an N-dimensional space.
+
+    >>> for n in neighborhood(0, 0):
+    ...     print(n, end=" ")
+    ... (-1, -1) (-1, 0) (-1, 1) (0, -1) (0, 0) (0, 1) (1, -1) (1, 0) (1, 1)
+    >>> for n in neighborhood(1, 2, 3):
+    ...    print(n, end=" ")
+    ... (0, 1, 2) (0, 1, 3) (0, 1, 4) (0, 2, 2) (0, 2, 3) (0, 2, 4) (0, 3, 2) # ...
+    """
+    for diff in product([-1, 0, 1], repeat=len(position)):
+        neighbor = tuple(pos + diff[i] for i, pos in enumerate(position))
+        yield neighbor
+```
+
+I start by processing the input, saving if they are active (`#`) or inactive (`.`) in a dictionary keyed by the point in 3 dimensions
+
+```python
+initial = """
+####.#..
+.......#
+#..#####
+.....##.
+##...###
+#..#.#.#
+.##...#.
+#...##..
+""".strip()
+
+space = defaultdict(lambda: ".")
+for x, line in enumerate(initial.splitlines()):
+    for y, state in enumerate(line):
+        cube = (x, y, 0)
+        space[cube] = state
+```
+
+Because the space is infinite, cubes for other values of the third-dimension and outside the borders of the input need to be taken into account. Instead of finding the borders of the active nodes, I decided to go over each of the known cubes, and if they are added, I would increment a counter for each of these neighbors. I would end up with more points than the iteration before, and how many of these points have active neighbors.
+
+```python
+cube_to_active_count = defaultdict(int)
+
+for cube in space:
+    for n in neighborhood(*cube):
+        if n == cube:  # don't count the cube itself
+            continue
+        cube_to_active_count[n] += space[cube] == "#"
+```
+
+As I said earlier, dictionary `cube_to_active_count` will end up with more points than the space before. For each of those points I can now decide if they are active or inactive given how many of the original space were active. Here's the direct translation of the rules defined above:
+
+```python
+for n, count in cube_to_active_count.items():
+    if space[n] == "#":
+        if count in [2, 3]:
+            space[n] = "#"
+        else:
+            space[n] = "."
+    elif space[n] == ".":
+        if count == 3:
+            space[n] = "#"
+```
+
+After running this 6 times (a simple `for _ in range(6)`), I just sum up the values of the space dictionary that are equal to the active state char `#`.
+
+Part 2 of the puzzle just asked for running the same 6 cycles, but now in a four-dimensions space! No change was needed to the neighborhood calculation, so that was a win. I needed to change the input parsing to allow for another dimension:
+
+```diff
+ space = defaultdict(lambda: ".")
+ for x, line in enumerate(initial.splitlines()):
+     for y, state in enumerate(line):
+-        cube = (x, y, 0)
++        cube = (x, y, 0, 0)
+         space[cube] = state
+```
+
+Then I just copied the code verbatim from part 1 and got to the correct answer. It was taking a couple of seconds to run though, given that now we are growing the space in each cycle due to each cube now adding at most 80 cubes to the "known" space state.
+
+I noticed that I was just counting active cubes in the first for loop to find the affected neighbors, adding a lot of references to new points but only saying these had 0 active cubes around them. So I edited the code to skip neighbor processing of inactive cubes (the majority of the iterations), and with a couple of adjustments, I had a solution running in 0.3 seconds. I then generalized it as well to run for multiple dimensions, with some nice tricks to parse the input. Here's the full code for the cycle:
+
+```python
+def full_cycle(initial: str, dimensions: int) -> int:
+    space = defaultdict(lambda: ".")
+    padding = (0,) * (dimensions - 2)
+    for x, line in enumerate(initial.splitlines()):
+        for y, state in enumerate(line):
+            cube = (x, y) + padding
+            space[cube] = state
+
+    for _ in range(6):
+        cube_to_active_count = defaultdict(int)
+
+        for cube in space:
+            if space[cube] == ".":
+                continue
+            for n in neighborhood(*cube):
+                # neighborhood contains cube and all its neighbors.
+                # `cube_to_active_count[n] += n != cube` ensures
+                # active cubes without active neighbors are counted
+                # and proper deactivated by underpopulation in the
+                # next for-loop.
+                cube_to_active_count[n] += n != cube and space[cube] == "#"
+        for n, count in cube_to_active_count.items():
+            if space[n] == "#":
+                if count in [2, 3]:
+                    space[n] = "#"
+                else:
+                    space[n] = "."
+            elif space[n] == ".":
+                if count == 3:
+                    space[n] = "#"
+
+    return sum(state == "#" for state in space.values())
+
+print("--- part 1 ---")
+print(full_cycle(initial, 3))
+print("--- part 2 ---")
+print(full_cycle(initial, 4))
+```
+
+There are a couple of tricks to decrease the line count around the check if a cube becomes active or inactive, but it wouldn't add much in terms of performance. I'm pretty happy with this solution!
+
 [aoc-about]: https://adventofcode.com/about
 [aoc-repo]: https://github.com/rbusquet/advent-of-code
 [day-1]: https://adventofcode.com/2020/day/1
@@ -397,3 +549,4 @@ print(total_count)
 [regexp]: https://en.wikipedia.org/wiki/Regular_expression
 [counter]: https://docs.python.org/3/library/collections.html#collections.Counter
 [toboggan]: https://en.wikipedia.org/wiki/Toboggan
+[game-of-life]: https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life

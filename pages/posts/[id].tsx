@@ -1,5 +1,4 @@
 import { useMemo } from "react"
-import Link from "next/link"
 import type { GetStaticPaths, GetStaticProps, NextPage } from "next"
 import { getMDXComponent } from "mdx-bundler/client"
 
@@ -36,23 +35,11 @@ const PostComponent: NextPage<Props> = ({ postData, baseUrl }) => {
       />
       <article>
         <h1>{postData.title}</h1>
-        {postData.categories ? (
-          <small>
-            {postData.categories.map((category) => (
-              <>
-                <Link key={category} href={`/categories/${category}`}>
-                  <a>{category}</a>
-                </Link>{" "}
-              </>
-            ))}
-          </small>
-        ) : null}
+        <p>
+          <Date dateString={postData.date} />
+        </p>
 
         <Component />
-
-        <small>
-          <Date dateString={postData.date} />
-        </small>
       </article>
     </Layout>
   )
