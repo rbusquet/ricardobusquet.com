@@ -21,9 +21,7 @@ Paired with the idea that whatever you pass to `React.useState` is the initial v
 
 ```js
 function App() {
-  const [state, setState] = React useState(
-    expensiveComputation(),
-  );
+  const [state, setState] = React.useState(expensiveComputation())
   // ...
 }
 ```
