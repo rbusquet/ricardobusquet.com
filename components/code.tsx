@@ -1,9 +1,12 @@
 import Highlight, { defaultProps, Language } from "prism-react-renderer"
-import theme from "prism-react-renderer/themes/okaidia"
+import darkTheme from "prism-react-renderer/themes/duotoneDark"
+import lightTheme from "prism-react-renderer/themes/duotoneLight"
 
 import cx from "classnames"
 
 import styles from "./code.module.css"
+
+import { useColorScheme } from "./hooks"
 
 function WithLineNumbers({
   codeString,
@@ -12,10 +15,11 @@ function WithLineNumbers({
   codeString: string
   language: Language
 }): JSX.Element {
+  const color = useColorScheme()
   return (
     <Highlight
       {...defaultProps}
-      theme={theme}
+      theme={color === "dark" ? darkTheme : lightTheme}
       code={codeString}
       language={language}
     >
