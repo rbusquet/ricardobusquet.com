@@ -1,14 +1,5 @@
 @import "@exampledev/new.css";
 
-@import "highlight.js/styles/a11y-dark.css" (prefers-color-scheme: dark);
-@import "highlight.js/styles/a11y-light.css" (prefers-color-scheme: light);
-
-pre {
-  & > code.hljs {
-    margin: -1rem -1.4rem;
-  }
-}
-
 :root {
   --nc-font-mono: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
     "Courier New", monospace;
