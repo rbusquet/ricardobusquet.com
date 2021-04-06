@@ -6,8 +6,6 @@ import gfm from "remark-gfm"
 
 import slug from "rehype-slug"
 // @ts-expect-error missing type def
-import highlight from "rehype-highlight"
-// @ts-expect-error missing type def
 import emoji from "remark-emoji"
 import { rehypeAccessibleEmojis } from "rehype-accessible-emojis"
 
@@ -75,7 +73,7 @@ export function getAllPostIds(): PathParams[] {
 }
 
 const REMARK_PLUGINS = [gfm, emoji]
-const REHYPE_PLUGINS = [slug, highlight, rehypeAccessibleEmojis]
+const REHYPE_PLUGINS = [slug, rehypeAccessibleEmojis]
 
 export async function getPostData(id?: string): Promise<Post> {
   const fullPath = path.join(postsDirectory, `${id}.md`)
