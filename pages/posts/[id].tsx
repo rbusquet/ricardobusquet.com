@@ -6,6 +6,7 @@ import Layout from "../../components/layout"
 import { getAllPostIds, getPostData, Post } from "../../lib/posts"
 
 import Date from "../../components/date"
+import components from "../../components/mdx"
 import { NextSeo } from "next-seo"
 
 interface Props {
@@ -39,7 +40,7 @@ const PostComponent: NextPage<Props> = ({ postData, baseUrl }) => {
           <Date dateString={postData.date} />
         </p>
 
-        <Component />
+        <Component components={components} />
       </article>
     </Layout>
   )
