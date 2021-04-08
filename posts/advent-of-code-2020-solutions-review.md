@@ -481,7 +481,7 @@ After running this 6 times (a simple `for _ in range(6)`), I just sum up the val
 
 Part 2 of the puzzle just asked for running the same 6 cycles, but now in a four-dimensions space! No change was needed to the neighborhood calculation, so that was a win. I needed to change the input parsing to allow for another dimension:
 
-```diff
+```diff-python[class="diff-highlight"]
  space = defaultdict(lambda: ".")
  for x, line in enumerate(initial.splitlines()):
      for y, state in enumerate(line):

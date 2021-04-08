@@ -8,6 +8,7 @@ import slug from "rehype-slug"
 // @ts-expect-error missing type def
 import emoji from "remark-emoji"
 import { rehypeAccessibleEmojis } from "rehype-accessible-emojis"
+import remarkPrism from "remark-prism"
 
 export interface Post {
   id: string
@@ -72,7 +73,17 @@ export function getAllPostIds(): PathParams[] {
   })
 }
 
-const REMARK_PLUGINS = [gfm, emoji]
+const REMARK_PLUGINS = [
+  gfm,
+  emoji,
+  [
+    remarkPrism,
+    {
+      plugins: ["diff-highlight", "line-numbers"],
+      // transformInlineCode: true,
+    },
+  ],
+]
 const REHYPE_PLUGINS = [slug, rehypeAccessibleEmojis]
 
 export async function getPostData(id?: string): Promise<Post> {
