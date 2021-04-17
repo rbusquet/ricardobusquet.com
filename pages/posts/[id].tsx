@@ -1,23 +1,22 @@
-import { useMemo } from "react"
-import type { GetStaticPaths, GetStaticProps, NextPage } from "next"
-import { getMDXComponent } from "mdx-bundler/client"
+import type { GetServerSideProps, NextPage } from "next"
 
 import Layout from "../../components/layout"
-import { getAllPostIds, getPostData, Post } from "../../lib/posts"
+import { getPost } from "../../lib/posts"
+import type { Post } from "../../lib/types"
 
 import Date from "../../components/date"
-import components from "../../components/mdx"
 import { NextSeo } from "next-seo"
+import FourOhFour from "../404"
 
 interface Props {
-  postData: Post
+  postData: Post | null
   baseUrl: string
 }
 
 const PostComponent: NextPage<Props> = ({ postData, baseUrl }) => {
-  const Component = useMemo(() => getMDXComponent(postData.code), [
-    postData.code,
-  ])
+  if (postData === null) {
+    return <FourOhFour />
+  }
 
   return (
     <Layout>
@@ -40,21 +39,17 @@ const PostComponent: NextPage<Props> = ({ postData, baseUrl }) => {
           <Date dateString={postData.date} />
         </p>
 
-        <Component components={components} />
+        <div dangerouslySetInnerHTML={{ __html: postData.code }} />
       </article>
     </Layout>
   )
 }
 
-export const getStaticPaths: GetStaticPaths<{ id: string }> = async () => ({
-  paths: getAllPostIds(),
-  fallback: false,
-})
-
-export const getStaticProps: GetStaticProps<Props, { id: string }> = async ({
-  params,
-}) => {
-  const postData = await getPostData(params?.id)
+export const getServerSideProps: GetServerSideProps<
+  Props,
+  { id: string }
+> = async ({ params }) => {
+  const postData = await getPost(params?.id as string)
 
   return {
     props: {
