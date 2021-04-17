@@ -1,6 +1,6 @@
 import type { NextPage } from "next/types"
 import Layout from "../components/layout"
-import { Post } from "../lib/posts"
+import type { Post } from "../lib/types"
 
 interface Props {
   allPostsData: Post[]
