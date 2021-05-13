@@ -7,6 +7,7 @@ import type { Post } from "../../lib/types"
 import Date from "../../components/date"
 import { NextSeo } from "next-seo"
 import FourOhFour from "../404"
+import React from "react"
 
 interface Props {
   postData: Post | null
@@ -17,6 +18,10 @@ const PostComponent: NextPage<Props> = ({ postData, baseUrl }) => {
   if (postData === null) {
     return <FourOhFour />
   }
+
+  const Component = React.useMemo(() => getMDXComponent(postData.code), [
+    postData.code,
+  ])
 
   return (
     <Layout>
@@ -39,7 +44,7 @@ const PostComponent: NextPage<Props> = ({ postData, baseUrl }) => {
           <Date dateString={postData.date} />
         </p>
 
-        <div dangerouslySetInnerHTML={{ __html: postData.code }} />
+        <Component />
       </article>
     </Layout>
   )
@@ -60,3 +65,6 @@ export const getServerSideProps: GetServerSideProps<
 }
 
 export default PostComponent
+function getMDXComponent(code: any): any {
+  throw new Error("Function not implemented.")
+}
