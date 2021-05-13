@@ -1,3 +1,5 @@
+import { values } from "faunadb"
+
 export interface Post {
   id: string
   date: string
@@ -9,4 +11,10 @@ export interface Post {
   fileContents?: string
 }
 
+export type FaunaPostTuple = [
+  date: values.FaunaDate,
+  id: string,
+  title: string,
+  ref: values.Ref
+]
 export type PostTuple = [date: string, id: string, title: string]

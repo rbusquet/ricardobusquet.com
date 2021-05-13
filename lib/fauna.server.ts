@@ -1,5 +1,5 @@
 import faunadb, { query as q } from "faunadb"
-import type { Post, PostTuple } from "./types"
+import type { Post, PostTuple, FaunaPostTuple } from "./types"
 
 export async function queryPost(id: string): Promise<Post | null> {
   const client = new faunadb.Client({
@@ -21,10 +21,10 @@ export async function queryAllPosts(): Promise<PostTuple[]> {
   })
   const { data } = (await client.query(
     q.Paginate(q.Match(q.Index("all_posts_reversed")))
-  )) as { data: [...PostTuple, unknown][] }
+  )) as { data: FaunaPostTuple[] }
 
   return data.map((d) => {
     const [date, id, title] = d
-    return [date, id, title]
+    return [date.date.toISOString(), id, title]
   })
 }
