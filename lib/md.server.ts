@@ -4,6 +4,8 @@ import markdown from "markdown-it"
 import emoji from "markdown-it-emoji"
 import anchor from "markdown-it-anchor"
 
+import "shiki/themes/nord.json"
+
 export async function compileMarkdown(contents: string): Promise<string> {
   const highlighter = await getHighlighter({})
   const md = markdown({
