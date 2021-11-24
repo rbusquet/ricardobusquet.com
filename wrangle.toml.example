@@ -1,10 +1,10 @@
-name = "remix-cloudflare-workers"
+name = "ricardobusquet"
 type = "javascript"
 
 zone_id = ""
 account_id = ""
 route = ""
-workers_dev = true
+workers_dev = false
 
 [site]
 bucket = "./public"
