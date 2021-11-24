@@ -18,6 +18,9 @@ export default function Index() {
           Find me on <a href="https://twitter.com/ricbusquet">Twitter</a> or{" "}
           <a href="https://github.com/rbusquet">GitHub</a>!
         </p>
+        <p>
+          <small>You can also end an email to contact@rbusquet.dev</small>
+        </p>
       </main>
       {/* <aside>
         <h2>Blog posts</h2>
