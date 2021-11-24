@@ -3,7 +3,7 @@ type = "javascript"
 
 zone_id = ""
 account_id = ""
-route = ""
+route = "*.ricardobusquet.com/*"
 workers_dev = false
 
 [site]
