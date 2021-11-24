@@ -6,6 +6,8 @@ account_id = ""
 route = "*.ricardobusquet.com/*"
 workers_dev = false
 
+compatibility_date = "2021-11-24"
+
 [site]
 bucket = "./public"
 entry-point = "."
