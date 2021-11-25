@@ -35,10 +35,9 @@ export default function App() {
 function Document({
   children,
   title,
-}: {
-  children: React.ReactNode;
+}: React.PropsWithChildren<{
   title?: string;
-}) {
+}>) {
   return (
     <html lang="en">
       <head>
@@ -61,35 +60,19 @@ function Document({
 
 function Layout({ children }: React.PropsWithChildren<{}>) {
   return (
-    <div className="app">
+    <>
       <header className="header">
-        <div className="container header-content">
-          <h1>
-            <Link to="/" title="Ricardo Busquet" className="header-home-link">
-              Ricardo Busquet
-            </Link>
-          </h1>
-          <nav aria-label="Main navigation" className="header-nav">
-            <ul>
-              <li>
-                <Link to="/">Home</Link>
-              </li>
-              <li>
-                <a href="https://github.com/rbusquet">GitHub</a>
-              </li>
-            </ul>
-          </nav>
-        </div>
+        <h1 style={{ textTransform: "lowercase" }}>Ricardo Busquet</h1>
+        <nav aria-label="Main navigation" className="header-nav">
+          <Link to="/">Home</Link> /{" "}
+          <a href="https://github.com/rbusquet">GitHub</a>
+        </nav>
       </header>
-      <div className="main">
-        <div className="container main-content">{children}</div>
-      </div>
+      <main>{children}</main>
       <footer className="footer">
-        <div className="container footer-content">
-          <p>&copy; Ricardo Busquet - 2021</p>
-        </div>
+        <p>&copy; Ricardo Busquet - 2021</p>
       </footer>
-    </div>
+    </>
   );
 }
 
@@ -133,12 +116,10 @@ export function ErrorBoundary({ error }: { error: Error }) {
   return (
     <Document title="Error!">
       <Layout>
-        <div>
-          <h1>There was an error</h1>
-          <p>{error.message}</p>
-          <hr />
-          <p>Oh, no! Our website... it's broken!</p>
-        </div>
+        <h1>There was an error</h1>
+        <p>{error.message}</p>
+        <hr />
+        <p>Oh, no! Our website... it's broken!</p>
       </Layout>
     </Document>
   );
