@@ -1,3 +1,3 @@
-![CI](https://github.com/rbusquet/ricardobusquet.com/actions/workflows/deploy.yml/badge.svg)
+![GitHub deployments](https://img.shields.io/github/deployments/rbusquet/ricardobusquet.com/production?label=Build)
 
 Powered by Remix
