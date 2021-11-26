@@ -1,4 +1,4 @@
-import type { MetaFunction } from "remix";
+import { Link, MetaFunction, useLoaderData } from "remix";
 
 export let meta: MetaFunction = () => {
   return {
@@ -6,10 +6,34 @@ export let meta: MetaFunction = () => {
     description: "Ricardo Busquet's page",
   };
 };
+import * as aoc from "./posts/advent-of-code.md";
+import * as dynamic from "./posts/dynamic-nature-python.md";
+import * as usestate from "./posts/visualizing-use-state.md";
+
+function postFromModule(mod: typeof import("*.mdx")) {
+  return {
+    slug: mod.filename.replace(/\.mdx?$/, ""),
+    ...mod.attributes.meta,
+  };
+}
+
+export function loader() {
+  // Return metadata about each of the posts for display on the index page.
+  // Referencing the posts here instead of in the Index component down below
+  // lets us avoid bundling the actual posts themselves in the bundle for the
+  // index page.
+  return [
+    postFromModule(aoc),
+    postFromModule(dynamic),
+    postFromModule(usestate),
+  ];
+}
 
 export default function Index() {
+  let posts = useLoaderData();
+  console.log(posts);
   return (
-    <div>
+    <>
       <main>
         <h2>Hello, I'm Ricardo! 👋</h2>
         <p>Nice to meet you!</p>
@@ -19,18 +43,18 @@ export default function Index() {
           <a href="https://github.com/rbusquet">GitHub</a>!
         </p>
       </main>
-      {/* <aside>
+      <aside>
         <h2>Blog posts</h2>
 
-        <h2>Repos</h2>
         <ul>
-          {data.map((resource) => (
-            <li key={resource.full_name}>
-              <a href={resource.html_url}>{resource.full_name}</a>
+          {posts.map((post: ReturnType<typeof postFromModule>) => (
+            <li key={post.slug}>
+              <Link to={`posts/${post.slug}`}>{post.title}</Link>
+              {post.description && <p>{post.description}</p>}
             </li>
           ))}
         </ul>
-      </aside> */}
-    </div>
+      </aside>
+    </>
   );
 }
