@@ -44,6 +44,11 @@ function Document({
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width,initial-scale=1" />
         {title ? <title>{title}</title> : null}
+        <link
+          rel="stylesheet"
+          href="//unpkg.com/@highlightjs/cdn-assets@11.3.1/styles/default.min.css"
+        />
+        <script src="//unpkg.com/@highlightjs/cdn-assets@11.3.1/highlight.min.js" />
         <Meta />
         <Links />
       </head>
