@@ -1,5 +1,3 @@
-//
-
 /**
  * @type {import('@remix-run/dev/config').AppConfig}
  */
@@ -8,4 +6,16 @@ module.exports = {
   browserBuildDirectory: "public/build",
   publicPath: "/build/",
   serverBuildDirectory: "api/build",
+  mdx: async (filename) => {
+    const [rehypeHighlight, remarkGfm, remarkGemoji] = await Promise.all([
+      import("rehype-highlight").then((mod) => mod.default),
+      import("remark-gfm").then((mod) => mod.default),
+      import("remark-gemoji").then((mod) => mod.default),
+    ]);
+
+    return {
+      rehypePlugins: [rehypeHighlight],
+      remarkPlugins: [remarkGfm, remarkGemoji],
+    };
+  },
 };
