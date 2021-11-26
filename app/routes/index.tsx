@@ -6,7 +6,7 @@ export let meta: MetaFunction = () => {
     description: "Ricardo Busquet's page",
   };
 };
-import * as aoc from "./posts/advent-of-code.md";
+import * as aoc from "./posts/dynamic-nature-python.md";
 import * as dynamic from "./posts/dynamic-nature-python.md";
 import * as usestate from "./posts/visualizing-use-state.md";
 
@@ -31,7 +31,7 @@ export function loader() {
 
 export default function Index() {
   let posts = useLoaderData();
-  console.log(posts);
+
   return (
     <>
       <main>
