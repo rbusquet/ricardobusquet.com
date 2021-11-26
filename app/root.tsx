@@ -19,6 +19,10 @@ export let links: LinksFunction = () => {
       rel: "stylesheet",
       href: "https://cdn.jsdelivr.net/npm/@exampledev/new.css@1.1.2/new.min.css",
     },
+    {
+      rel: "stylesheet",
+      href: "https://unpkg.com/@highlightjs/cdn-assets@11.3.1/styles/default.min.css",
+    },
   ];
 };
 
@@ -44,11 +48,7 @@ function Document({
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width,initial-scale=1" />
         {title ? <title>{title}</title> : null}
-        <link
-          rel="stylesheet"
-          href="//unpkg.com/@highlightjs/cdn-assets@11.3.1/styles/default.min.css"
-        />
-        <script src="//unpkg.com/@highlightjs/cdn-assets@11.3.1/highlight.min.js" />
+        <link rel="stylesheet" href="" />
         <Meta />
         <Links />
       </head>
