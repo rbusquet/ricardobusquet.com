@@ -21,7 +21,12 @@ export let links: LinksFunction = () => {
     },
     {
       rel: "stylesheet",
-      href: "https://unpkg.com/@highlightjs/cdn-assets@11.3.1/styles/default.min.css",
+      href: "https://unpkg.com/@highlightjs/cdn-assets@11.3.1/styles/base16/solarized-light.min.css",
+    },
+    {
+      rel: "stylesheet",
+      href: "https://unpkg.com/@highlightjs/cdn-assets@11.3.1/styles/base16/solarized-dark.min.css",
+      media: "(prefers-color-scheme: dark)",
     },
   ];
 };
