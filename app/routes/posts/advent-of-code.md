@@ -9,6 +9,8 @@ meta:
   credits: Photo by <a href="https://unsplash.com/@markusspiske">Markus Spiske</a>
 ---
 
+# Advent of Code 2020 - Solutions review
+
 #### Solved challenges
 
 - [Day 1: Report Repair](#day-1-report-repair)

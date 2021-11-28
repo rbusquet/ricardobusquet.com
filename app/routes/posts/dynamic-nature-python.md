@@ -8,6 +8,8 @@ meta:
   credits: Photo by <a href="https://unsplash.com/@smigielski">Adam Śmigielski</a>
 ---
 
+# The dynamic nature of Python's MRO
+
 Imagine the following class relationships:
 
 ```python

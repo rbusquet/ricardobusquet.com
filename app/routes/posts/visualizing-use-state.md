@@ -9,6 +9,8 @@ meta:
   coverImage: visualizing-lazy-initial-state.jpg
 ---
 
+# Visualizing React hooks' lazy initial state
+
 Most examples of React hook's [lazy initial state](https://reactjs.org/docs/hooks-reference.html#lazy-initial-state) uses inline arrow functions to showcase the usage:
 
 ```js

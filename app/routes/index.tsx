@@ -31,7 +31,6 @@ export function loader() {
 
 export default function Index() {
   let posts = useLoaderData();
-  console.log(posts);
   return (
     <>
       <main>
@@ -49,7 +48,9 @@ export default function Index() {
         <ul>
           {posts.map((post: ReturnType<typeof postFromModule>) => (
             <li key={post.slug}>
-              <Link to={`posts/${post.slug}`}>{post.title}</Link>
+              <Link to={`posts/${post.slug}`} prefetch="intent">
+                {post.title}
+              </Link>
               {post.description && <p>{post.description}</p>}
             </li>
           ))}
