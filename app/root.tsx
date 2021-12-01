@@ -70,8 +70,13 @@ function Layout({ children }: React.PropsWithChildren<{}>) {
         </nav>
       </header>
       <main>{children}</main>
-      <footer className="footer">
-        <p>&copy; Ricardo Busquet - 2021</p>
+      <footer style={{ textAlign: "center", paddingTop: "2em" }}>
+        <small>
+          &copy; Ricardo Busquet - 2021 - powered by 💿{" "}
+          <a href="https://remix.run" rel="noopener noreferer">
+            REMIX
+          </a>
+        </small>
       </footer>
     </>
   );
