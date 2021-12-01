@@ -11,14 +11,16 @@ import {
   useLocation,
 } from "remix";
 import type { LinksFunction } from "remix";
+import globalStyles from "./styles/global.css";
 
 export let links: LinksFunction = () => {
   return [
-    { rel: "stylesheet", href: "https://fonts.xz.style/serve/inter.css" },
+    { rel: "stylesheet", href: "/fonts/inter/inter.css" },
     {
       rel: "stylesheet",
       href: "https://cdn.jsdelivr.net/npm/@exampledev/new.css@1.1.2/new.min.css",
     },
+    { rel: "stylesheet", href: globalStyles },
   ];
 };
 
