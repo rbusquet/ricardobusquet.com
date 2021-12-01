@@ -9,6 +9,7 @@ export let meta: MetaFunction = () => {
 import * as aoc from "./posts/advent-of-code.md";
 import * as dynamic from "./posts/dynamic-nature-python.md";
 import * as usestate from "./posts/visualizing-use-state.md";
+import * as aoc2021 from "./posts/aoc-2021.md";
 
 function postFromModule(mod: typeof import("*.mdx")) {
   return {
@@ -23,6 +24,7 @@ export function loader() {
   // lets us avoid bundling the actual posts themselves in the bundle for the
   // index page.
   return [
+    postFromModule(aoc2021),
     postFromModule(aoc),
     postFromModule(dynamic),
     postFromModule(usestate),
