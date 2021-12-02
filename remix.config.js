@@ -6,6 +6,21 @@ module.exports = {
   browserBuildDirectory: "public/build",
   publicPath: "/build/",
   serverBuildDirectory: "api/build",
+
+  routes: async defineRoutes => {
+    let pages = await fsp.readdir(path.join(__dirname, "app", "posts"));
+
+    return defineRoutes(route => {
+      // create some custom routes from the pages/ dir
+      for (let page of pages) {
+        // skip MDX pages for now...
+        if (page.endsWith(".mdx")) continue;
+
+        let slug = page.replace(/\.[a-z]+$/, "");
+        route(`/post/${slug}`, `posts/${page}`);
+      }
+    });
+  },
   mdx: async (filename) => {
     const [
       rehypeHighlight,
