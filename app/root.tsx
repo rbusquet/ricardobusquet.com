@@ -12,14 +12,11 @@ import {
 } from "remix";
 import type { LinksFunction } from "remix";
 import globalStyles from "./styles/global.css";
+import interStyles from "./styles/inter.css";
 
 export let links: LinksFunction = () => {
   return [
-    { rel: "stylesheet", href: "/fonts/inter/inter.css" },
-    {
-      rel: "stylesheet",
-      href: "https://cdn.jsdelivr.net/npm/@exampledev/new.css@1.1.2/new.min.css",
-    },
+    { rel: "stylesheet", href: interStyles },
     { rel: "stylesheet", href: globalStyles },
   ];
 };
