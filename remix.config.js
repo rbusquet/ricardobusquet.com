@@ -1,5 +1,3 @@
-const fsp = require("fs").promises;
-const path = require("path");
 
 /**
  * @type {import('@remix-run/dev/config').AppConfig}
@@ -9,21 +7,6 @@ module.exports = {
   browserBuildDirectory: "public/build",
   publicPath: "/build/",
   serverBuildDirectory: "api/build",
-
-  routes: async defineRoutes => {
-    let pages = await fsp.readdir(path.join(__dirname, "app", "routes", "posts"));
-
-    return defineRoutes(route => {
-      // create some custom routes from the pages/ dir
-      for (let page of pages) {
-        // skip MDX pages for now...
-        if (page.endsWith(".mdx")) continue;
-
-        let slug = page.replace(/\.[a-z]+$/, "");
-        route(`/post/${slug}`, `routes/posts/${page}`);
-      }
-    });
-  },
   mdx: async (filename) => {
     const [
       rehypeHighlight,
