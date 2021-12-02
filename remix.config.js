@@ -11,7 +11,7 @@ module.exports = {
   serverBuildDirectory: "api/build",
 
   routes: async defineRoutes => {
-    let pages = await fsp.readdir(path.join(__dirname, "app", "posts"));
+    let pages = await fsp.readdir(path.join(__dirname, "app", "routes", "posts"));
 
     return defineRoutes(route => {
       // create some custom routes from the pages/ dir
@@ -20,7 +20,7 @@ module.exports = {
         if (page.endsWith(".mdx")) continue;
 
         let slug = page.replace(/\.[a-z]+$/, "");
-        route(`/post/${slug}`, `posts/${page}`);
+        route(`/post/${slug}`, `routes/posts/${page}`);
       }
     });
   },
