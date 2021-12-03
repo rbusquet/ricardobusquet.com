@@ -6,11 +6,11 @@ export let links: LinksFunction = () => {
     { rel: "stylesheet", href: clean },
     {
       rel: "stylesheet",
-      href: "https://unpkg.com/@highlightjs/cdn-assets@11.3.1/styles/base16/solarized-light.min.css",
+      href: "https://unpkg.com/@highlightjs/cdn-assets@11.3.1/styles/base16/default-light.min.css",
     },
     {
       rel: "stylesheet",
-      href: "https://unpkg.com/@highlightjs/cdn-assets@11.3.1/styles/base16/solarized-dark.min.css",
+      href: "https://unpkg.com/@highlightjs/cdn-assets@11.3.1/styles/base16/default-dark.min.css",
       media: "(prefers-color-scheme: dark)",
     },
   ];
