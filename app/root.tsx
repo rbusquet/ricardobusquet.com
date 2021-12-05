@@ -69,13 +69,17 @@ function Layout({ children }: React.PropsWithChildren<{}>) {
         </nav>
       </header>
       <main>{children}</main>
-      <footer style={{ textAlign: "center", paddingTop: "2em" }}>
-        <small>
-          &copy; Ricardo Busquet - 2021 - powered by 💿{" "}
+      <footer
+        style={{ textAlign: "center", paddingTop: "2em", fontSize: "small" }}
+      >
+        &copy; Ricardo Busquet - 2021
+        <br />
+        <span style={{ whiteSpace: "nowrap" }}>
+          powered by 💿
           <a href="https://remix.run" rel="noopener noreferer">
             REMIX
           </a>
-        </small>
+        </span>
       </footer>
     </>
   );
