@@ -18,12 +18,9 @@ yarn-error.log*
 
 .mf
 
-node_modules
-
-/.cache
 /.vercel
 /.output
 
-/public/build
 /api/build
 .vercel
+.idea
