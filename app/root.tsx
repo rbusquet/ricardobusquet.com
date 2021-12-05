@@ -68,9 +68,9 @@ function Layout({ children }: React.PropsWithChildren<{}>) {
           <a href="https://github.com/rbusquet">GitHub</a>
         </nav>
       </header>
-      <main>{children}</main>
+      <main style={{ minHeight: "70vh" }}>{children}</main>
       <footer
-        style={{ textAlign: "center", paddingTop: "2em", fontSize: "small" }}
+        style={{ maxHeight: "5vh", paddingTop: "2em", fontSize: "small" }}
       >
         &copy; Ricardo Busquet - 2021
         <br />
