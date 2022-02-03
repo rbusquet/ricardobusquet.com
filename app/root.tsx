@@ -51,7 +51,7 @@ function Document({
         {children}
         <RouteChangeAnnouncement />
         <ScrollRestoration />
-        <Scripts />
+        {/* <Scripts /> */}
         {process.env.NODE_ENV === "development" && <LiveReload />}
       </body>
     </html>
@@ -61,25 +61,24 @@ function Document({
 function Layout({ children }: React.PropsWithChildren<{}>) {
   return (
     <>
-      <header className="header">
-        <h1 style={{ textTransform: "lowercase" }}>Ricardo Busquet</h1>
+      <div role="heading" className="header">
         <nav aria-label="Main navigation" className="header-nav">
-          <Link to="/">Home</Link> /{" "}
-          <a href="https://github.com/rbusquet">GitHub</a>
+          <h1>Ricardo Busquet</h1>
+          <span>
+            <Link to="/">Home</Link>
+            {" · "}
+            <a href="https://github.com/rbusquet">GitHub</a>
+          </span>
         </nav>
-      </header>
-      <main style={{ minHeight: "70vh" }}>{children}</main>
-      <footer
-        style={{ maxHeight: "5vh", paddingTop: "2em", fontSize: "small" }}
-      >
-        &copy; Ricardo Busquet - 2021
+      </div>
+      <main>{children}</main>
+      <footer>
+        &copy; Ricardo Busquet - {new Date().getFullYear()}
         <br />
-        <span style={{ whiteSpace: "nowrap" }}>
-          powered by 💿
-          <a href="https://remix.run" rel="noopener noreferer">
-            REMIX
-          </a>
-        </span>
+        powered by 💿{" "}
+        <a href="https://remix.run" rel="noopener noreferer">
+          REMIX
+        </a>
       </footer>
     </>
   );

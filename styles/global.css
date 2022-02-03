@@ -1,6 +1,6 @@
 :root {
   --nc-font-sans: "Inter var", sans-serif;
-  --nc-font-mono: Consolas, Monaco, monospace;
+  --nc-font-mono: ui-monospace, monospace;
 
   /* Light theme */
   --nc-tx-1: #000000;
@@ -456,4 +456,21 @@ input {
 
 img {
   max-width: 100%;
+}
+
+nav {
+  display: flex;
+  border-bottom: 1px solid var(--nc-bg-2);
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header {
+  text-transform: lowercase;
+}
+
+footer {
+  max-height: 5vh;
+  padding-top: 2em;
+  font-size: small;
 }

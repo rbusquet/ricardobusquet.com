@@ -30,3 +30,5 @@ node_modules
 .idea
 *.css
 !styles/*.css
+
+api/_build
