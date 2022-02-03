@@ -91,11 +91,11 @@ button {
 }
 
 body {
-  max-width: 750px;
+  max-width: 760px;
   padding: 2rem;
   border-radius: 6px;
   overflow-x: hidden;
-  word-break: break-word;
+  hyphens: auto;
   overflow-wrap: break-word;
   background: var(--nc-bg-1);
 
