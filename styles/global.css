@@ -120,6 +120,7 @@ h6 {
   line-height: 1;
   color: var(--nc-tx-1);
   padding-top: 0.875rem;
+  hyphens: none;
 }
 
 h1,
