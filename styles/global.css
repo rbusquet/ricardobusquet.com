@@ -281,6 +281,7 @@ kbd,
 samp {
   /* Set the font family for monospaced elements */
   font-family: var(--nc-font-mono);
+  hyphens: none;
 }
 
 code,
