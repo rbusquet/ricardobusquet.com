@@ -1,7 +1,7 @@
 import etag from "etag";
 import { renderToString } from "react-dom/server";
-import type { EntryContext, HandleDataRequestFunction } from "remix";
-import { RemixServer } from "remix";
+import type { EntryContext, HandleDataRequestFunction } from "@remix-run/node";
+import { RemixServer } from "@remix-run/react";
 
 export default function handleRequest(
   request: Request,

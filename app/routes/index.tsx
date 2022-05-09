@@ -1,4 +1,5 @@
-import { Link, MetaFunction, useLoaderData } from "remix";
+import { json, MetaFunction } from "@remix-run/node";
+import { Link, useLoaderData } from "@remix-run/react";
 
 export let meta: MetaFunction = () => {
   return {
@@ -23,12 +24,13 @@ export function loader() {
   // Referencing the posts here instead of in the Index component down below
   // lets us avoid bundling the actual posts themselves in the bundle for the
   // index page.
-  return [
+  console.log("oioioi")
+  return json([
     postFromModule(aoc2021),
     postFromModule(aoc),
     postFromModule(dynamic),
     postFromModule(usestate),
-  ];
+  ], {headers: {"Cache-Control": "public, max-age=604800, immutable"}});
 }
 
 export default function Index() {
