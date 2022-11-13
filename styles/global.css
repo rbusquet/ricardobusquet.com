@@ -1,6 +1,6 @@
 :root {
   --nc-font-sans: "Inter var", sans-serif;
-  --nc-font-mono: ui-monospace, monospace;
+  --nc-font-mono: "Cascadia Code", ui-monospace, monospace;
 
   /* Light theme */
   --nc-tx-1: #000000;
@@ -282,6 +282,7 @@ kbd,
 samp {
   /* Set the font family for monospaced elements */
   font-family: var(--nc-font-mono);
+  font-feature-settings: "ss01";
   hyphens: none;
 }
 

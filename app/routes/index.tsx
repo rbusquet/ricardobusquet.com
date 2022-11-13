@@ -67,7 +67,7 @@ export default function Index() {
         <h2>Blog posts</h2>
 
         <ul>
-          {posts.map((post) => (
+          {posts.map(post => (
             <li key={post.slug}>
               <Link to={`posts/${post.slug}`} prefetch="intent">
                 {post.title}

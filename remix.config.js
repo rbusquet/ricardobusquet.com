@@ -15,12 +15,12 @@ module.exports = {
       remarkGfm,
       remarkGemoji,
     ] = await Promise.all([
-      import("rehype-highlight").then((mod) => mod.default),
-      import("rehype-slug").then((mod) => mod.default),
-      import("rehype-autolink-headings").then((mod) => mod.default),
-      import("remark-toc").then((mod) => mod.default),
-      import("remark-gfm").then((mod) => mod.default),
-      import("remark-gemoji").then((mod) => mod.default),
+      import("rehype-highlight").then(mod => mod.default),
+      import("rehype-slug").then(mod => mod.default),
+      import("rehype-autolink-headings").then(mod => mod.default),
+      import("remark-toc").then(mod => mod.default),
+      import("remark-gfm").then(mod => mod.default),
+      import("remark-gemoji").then(mod => mod.default),
     ]);
 
     return {

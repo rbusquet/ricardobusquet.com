@@ -15,10 +15,12 @@ import {
 
 import globalStyles from "./styles/global.css";
 import interStyles from "./styles/inter.css";
+import cascadiaStyles from "./styles/cascadia.css";
 
 export let links: LinksFunction = () => {
   return [
     { rel: "stylesheet", href: interStyles },
+    { rel: "stylesheet", href: cascadiaStyles },
     { rel: "stylesheet", href: globalStyles },
   ];
 };

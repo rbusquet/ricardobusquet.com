@@ -6,3 +6,16 @@ main {
   text-align: justify;
   hyphens: auto;
 }
+
+.hljs-keyword,
+.hljs-built_in,
+.hljs-title,
+.hljs-comment,
+.hljs-emphasis,
+.hljs-quote,
+.hljs-selector-class,
+.hljs-selector-pseudo,
+.hljs-addition,
+.hljs-deletion {
+  font-style: italic;
+}

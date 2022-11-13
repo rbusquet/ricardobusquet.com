@@ -6,7 +6,8 @@ meta:
     - advent-of-code
     - python
   coverImage: advent-of-code-2020-solutions-review.jpg
-  credits: Photo by <a href="https://unsplash.com/@markusspiske">Markus Spiske</a>
+  credits:
+    Photo by <a href="https://unsplash.com/@markusspiske">Markus Spiske</a>
 ---
 
 # Advent of Code 2020 - Solutions review
@@ -21,25 +22,48 @@ meta:
 - [Day 6: Custom Customs](#day-6-custom-customs)
 - [Day 17: Conway Cubes](#day-17-conway-cubes)
 
-Since 2018, every December, I ~~try to~~ work my way through [Advent of Code][aoc-about], a set of 25 puzzles revealed each day this month, until Christmas day. This has been around since 2015 (I also tried working on the earlier years, check all of my solutions in my [advent of code repo][aoc-repo]).
+Since 2018, every December, I ~~try to~~ work my way through [Advent of
+Code][aoc-about], a set of 25 puzzles revealed each day this month, until
+Christmas day. This has been around since 2015 (I also tried working on the
+earlier years, check all of my solutions in my [advent of code repo][aoc-repo]).
 
 A short description from their about page:
 
-> Advent of Code is an Advent calendar of small programming puzzles for a variety of skill sets and skill levels that can be solved in any programming language you like. People use them as a speed contest, interview prep, company training, university coursework, practice problems, or to challenge each other.
+> Advent of Code is an Advent calendar of small programming puzzles for a
+> variety of skill sets and skill levels that can be solved in any programming
+> language you like. People use them as a speed contest, interview prep, company
+> training, university coursework, practice problems, or to challenge each
+> other.
 
-The puzzles vary in difficulty, getting harder through the month. This year, I'll be writing about my solutions and a little about each puzzle's rationale and thought process. I'm not planning to get the best solution for each problem, but I try going about one or two steps on optimizations to showcase language features or get better run times. I'll also assume all my inputs will lead to a valid result, so no significant error checks will be done.
+The puzzles vary in difficulty, getting harder through the month. This year,
+I'll be writing about my solutions and a little about each puzzle's rationale
+and thought process. I'm not planning to get the best solution for each problem,
+but I try going about one or two steps on optimizations to showcase language
+features or get better run times. I'll also assume all my inputs will lead to a
+valid result, so no significant error checks will be done.
 
-I'll mainly use python for the solutions. It's the language I'm most proficient in, and this year it's been proving to have a lot of excellent tools to get cleaner results.
+I'll mainly use python for the solutions. It's the language I'm most proficient
+in, and this year it's been proving to have a lot of excellent tools to get
+cleaner results.
 
-We're on Day 6 at the time of writing, so I'll go over each day in this post, then update through the week. Follow along with me!
+We're on Day 6 at the time of writing, so I'll go over each day in this post,
+then update through the week. Follow along with me!
 
 ## Day 1: Report Repair
 
 <small>[Go to challenge][day-1]</small>
 
-TO START: I absolutely love the stories every year. Every year, the main character is an elf, tasked with _saving Christmas_. This year though, we're going on a vacation. Christmas is safe! Some good news this year, at last :)
+TO START: I absolutely love the stories every year. Every year, the main
+character is an elf, tasked with _saving Christmas_. This year though, we're
+going on a vacation. Christmas is safe! Some good news this year, at last :)
 
-In the first part of day 1, we're tasked with processing an expense report--a list of numbers, and we have to find the two entries that add up to 2020 and multiply these numbers together. The input was super short, so I could go with the "brute force" approach. For each number, go over the list again and find the one that adds up to 2020. I knew a simple trick to traverse the list once: using a set as the data structure to hold the numbers, I can find an item in constant time. For each number, I just need to check if `2020 - number` is on the list!
+In the first part of day 1, we're tasked with processing an expense report--a
+list of numbers, and we have to find the two entries that add up to 2020 and
+multiply these numbers together. The input was super short, so I could go with
+the "brute force" approach. For each number, go over the list again and find the
+one that adds up to 2020. I knew a simple trick to traverse the list once: using
+a set as the data structure to hold the numbers, I can find an item in constant
+time. For each number, I just need to check if `2020 - number` is on the list!
 
 ```python
 def part_one(report: List[int]):
@@ -49,7 +73,11 @@ def part_one(report: List[int]):
             return number * (2020 - number)
 ```
 
-The second part presents a similar puzzle, but now we need to find 3 numbers that add up to 2020. At this point, I remembered of python's [`itertools.combinations`][combinations]. This returns the subsequences of a list with the given size. I can use it also for part 1, so I just wrote a generic solution:
+The second part presents a similar puzzle, but now we need to find 3 numbers
+that add up to 2020. At this point, I remembered of python's
+[`itertools.combinations`][combinations]. This returns the subsequences of a
+list with the given size. I can use it also for part 1, so I just wrote a
+generic solution:
 
 ```python
 from functools import reduce
@@ -67,7 +95,15 @@ def part_one_combinations():
     solve_with_combinations(report, 3)
 ```
 
-Python will generate the combinations in a complexity better than O(n<sup>2</sup>) or O(n<sup>3</sup>), but I found out I could get O(n<sup>2</sup>) for part two. The solution involves sorting the list beforehand, then using a two-pointer technique: for each number in the list, I keep a pointer to the next number and the last of the list. If the sum is more than 2020, I decrease the end pointer to reduce the sum. If it's less than 2020, I increase the first pointer to get a larger sum. I repeat it for each item until I find all 3 numbers that match the requirements. I had to do a bit of research, so here's [the source][triplet-sum].
+Python will generate the combinations in a complexity better than
+O(n<sup>2</sup>) or O(n<sup>3</sup>), but I found out I could get
+O(n<sup>2</sup>) for part two. The solution involves sorting the list
+beforehand, then using a two-pointer technique: for each number in the list, I
+keep a pointer to the next number and the last of the list. If the sum is more
+than 2020, I decrease the end pointer to reduce the sum. If it's less than 2020,
+I increase the first pointer to get a larger sum. I repeat it for each item
+until I find all 3 numbers that match the requirements. I had to do a bit of
+research, so here's [the source][triplet-sum].
 
 ```python
 def best_performance_part_two(report):
@@ -91,7 +127,11 @@ best_performance_part_two(sorted(report))
 
 <small>[Go to challenge][day-2]</small>
 
-On day 2, we're tasked with processing a list of passwords and checking if they follow a set policy. Each line of the input gives the policy and the password to check. The password policy indicates the lowest and highest number of times a given letter must appear for the password to be valid. A valid input looks like this:
+On day 2, we're tasked with processing a list of passwords and checking if they
+follow a set policy. Each line of the input gives the policy and the password to
+check. The password policy indicates the lowest and highest number of times a
+given letter must appear for the password to be valid. A valid input looks like
+this:
 
 ```plaintext
 1-3 a: abcde
@@ -99,7 +139,9 @@ On day 2, we're tasked with processing a list of passwords and checking if they 
 2-9 c: ccccccccc
 ```
 
-For this one, I went with a [regular expression][regexp] to parse each line and a [`collections.Counter`][counter] to see if the letter has the correct count. Not much to improve there.
+For this one, I went with a [regular expression][regexp] to parse each line and
+a [`collections.Counter`][counter] to see if the letter has the correct count.
+Not much to improve there.
 
 ```python
 import re
@@ -118,7 +160,12 @@ def part_one(passwords: List[str]):
     return valid
 ```
 
-In part 2, the only difference is a reinterpretation of the policy. Each policy actually describes two positions in the password, and exactly one of these positions must contain the given letter. So I just get the letters, add a set, and test if the set has size two (meaning the letters are different), and the given letter is in the set. There might definitely be better ways to check this, but here it goes:
+In part 2, the only difference is a reinterpretation of the policy. Each policy
+actually describes two positions in the password, and exactly one of these
+positions must contain the given letter. So I just get the letters, add a set,
+and test if the set has size two (meaning the letters are different), and the
+given letter is in the set. There might definitely be better ways to check this,
+but here it goes:
 
 ```python
 def part_two(passwords: List[str]):
@@ -138,13 +185,27 @@ def part_two(passwords: List[str]):
 
 <small>[Go to challenge][day-3]</small>
 
-In this one, the puzzle input is a section of a "map", where the `.` represent empty spaces and `#` represents a tree, representing the geography of an area you're going to be sliding with a [Toboggan][toboggan]. You want to find a slope in the map where you're finding the smaller amount of trees (steering is hard in this area!).
+In this one, the puzzle input is a section of a "map", where the `.` represent
+empty spaces and `#` represents a tree, representing the geography of an area
+you're going to be sliding with a [Toboggan][toboggan]. You want to find a slope
+in the map where you're finding the smaller amount of trees (steering is hard in
+this area!).
 
-The map is only a section of the geography: the pattern repeats to the right "many times". This was a hint to me that there might be a way to figure out where in the map you are without "glueing" those sections together.
+The map is only a section of the geography: the pattern repeats to the right
+"many times". This was a hint to me that there might be a way to figure out
+where in the map you are without "glueing" those sections together.
 
-Part 1 just asks how many trees are there if you go down a slope _right 3, down 1_, which means you'll walk 3 squares to the right, then one down. The map have much more rows than columns, so it means you'll end up in this "extended area". How can we read this map and count the trees without duplicating the lines to figure out how these hidden areas look like? The solution is keeping track of your position and every time your coordinates land outside the size of the line, you figure out the new index by getting the modulo of your position and the size of the line.
+Part 1 just asks how many trees are there if you go down a slope _right 3, down
+1_, which means you'll walk 3 squares to the right, then one down. The map have
+much more rows than columns, so it means you'll end up in this "extended area".
+How can we read this map and count the trees without duplicating the lines to
+figure out how these hidden areas look like? The solution is keeping track of
+your position and every time your coordinates land outside the size of the line,
+you figure out the new index by getting the modulo of your position and the size
+of the line.
 
-I made part 1 generic to any slope thinking about the fact that I needed to do it for more cases, here's the solution I landed:
+I made part 1 generic to any slope thinking about the fact that I needed to do
+it for more cases, here's the solution I landed:
 
 ```python
 from itertools import count
@@ -172,7 +233,9 @@ def count_trees(right, down):
     return total_trees
 ```
 
-For part 2, it was just asked to check the tree count for other slopes (including one where you'd be going down more two rows). I just passed these to the function above and multiplied the values.
+For part 2, it was just asked to check the tree count for other slopes
+(including one where you'd be going down more two rows). I just passed these to
+the function above and multiplied the values.
 
 ```python
 from functools import reduce
@@ -192,9 +255,15 @@ print(reduce(mul, vals))
 
 <small>[Go to challenge][day-4]</small>
 
-This one felt like work. We're tasked with validating passports, and checking if they have the required fields. Fields are those of a common passport (date of birth, issue date, country, etc.). Country is not required because "North Pole Credentials aren't issued by a country".
+This one felt like work. We're tasked with validating passports, and checking if
+they have the required fields. Fields are those of a common passport (date of
+birth, issue date, country, etc.). Country is not required because "North Pole
+Credentials aren't issued by a country".
 
-I used [dataclasses][dataclasses] and read the input file, passing the a key-value map of the results to the auto-generated constructor. If any of the required arguments were missing, the constructor would raise an exception, which I catch and skip the passport as invalid.
+I used [dataclasses][dataclasses] and read the input file, passing the a
+key-value map of the results to the auto-generated constructor. If any of the
+required arguments were missing, the constructor would raise an exception, which
+I catch and skip the passport as invalid.
 
 ```python
 @dataclass
@@ -232,7 +301,8 @@ first_pass_valid = part_1()
 print(len(first_pass_valid))
 ```
 
-Part 2 extends the validation. So I just added a `validate` method to the passport dataclass and called for the valid passports on part 1.
+Part 2 extends the validation. So I just added a `validate` method to the
+passport dataclass and called for the valid passports on part 1.
 
 ```python
 @dataclass
@@ -266,11 +336,20 @@ for passport in first_pass_valid:
 print(valid)
 ```
 
-I almost skipped this one. This looks too much like my day-to-day work (validate forms for business logic and save is the bread and butter of web applications nowadays).
+I almost skipped this one. This looks too much like my day-to-day work (validate
+forms for business logic and save is the bread and butter of web applications
+nowadays).
 
 ## Day 5: Binary Boarding
 
-This was a fun one. I should've noticed by the name of today's puzzle there was an easier solution than almost writing verbatim the puzzle rules. Today we're looking through a list of boarding passes and "decoding" the seat IDs from the passes codes. From the day instructions, 'a seat might be specified like FBFBBFFRLR, where F means "front", B means "back", L means "left", and R means "right"'. This defines a `binary space partitioning`. I then proceeded to write the algorithm exactly like the puzzle described. Part 1 was asking to submit the highest seat ID. So here's the implementation:
+This was a fun one. I should've noticed by the name of today's puzzle there was
+an easier solution than almost writing verbatim the puzzle rules. Today we're
+looking through a list of boarding passes and "decoding" the seat IDs from the
+passes codes. From the day instructions, 'a seat might be specified like
+FBFBBFFRLR, where F means "front", B means "back", L means "left", and R means
+"right"'. This defines a `binary space partitioning`. I then proceeded to write
+the algorithm exactly like the puzzle described. Part 1 was asking to submit the
+highest seat ID. So here's the implementation:
 
 ```python
 def partition(code: str, count: int, lower_ch: str, upper_ch: str) -> int:
@@ -304,7 +383,11 @@ def part_1():
     return max_id
 ```
 
-When discussing with colleagues about day 5 solutions, one of them pointed out the rules were just the steps to transform a binary number into its base-10 representation, where "F"/"B" and "L"/"R" are "0" and "1". The `int` constructor in python can cast string representation of numbers in any base, which you can set as the second parameter. So `int("1001", 2)` will return `9`.
+When discussing with colleagues about day 5 solutions, one of them pointed out
+the rules were just the steps to transform a binary number into its base-10
+representation, where "F"/"B" and "L"/"R" are "0" and "1". The `int` constructor
+in python can cast string representation of numbers in any base, which you can
+set as the second parameter. So `int("1001", 2)` will return `9`.
 
 ```python
 def to_int(code, zero, one):
@@ -320,7 +403,12 @@ def to_int(code, zero, one):
 
 Neat.
 
-For part 2, we want to find the only missing seat ID in the list (the story character lost their boarding pass!). I could not for the life of me figure out how to do that. The puzzle states the "back" and the "front" of the airplane are empty, so you need to find the empty spot in the "middle". I went with the first idea in my mind: let's visualize the airplane after all seats are filled, print out the column and row, and manually find the seat ID.
+For part 2, we want to find the only missing seat ID in the list (the story
+character lost their boarding pass!). I could not for the life of me figure out
+how to do that. The puzzle states the "back" and the "front" of the airplane are
+empty, so you need to find the empty spot in the "middle". I went with the first
+idea in my mind: let's visualize the airplane after all seats are filled, print
+out the column and row, and manually find the seat ID.
 
 ```python
 def part_2_visualization():
@@ -344,7 +432,12 @@ def part_2_visualization():
         print("{:0>3} -> {}".format(i, x))
 ```
 
-Again, talking with colleagues made me understand a programatic solution. It's given that the plane is full. The ID formula is `row * 8 + col`. The airplane has 8 columns, so seats in the same row will all share the first "piece" of this equation, with the "col" making these ids map to all integers from 0 to 1024 (127 x 8 + 8). With all the ids calculated, I just need to find the difference between the ids I have and the set of all possible ids.
+Again, talking with colleagues made me understand a programatic solution. It's
+given that the plane is full. The ID formula is `row * 8 + col`. The airplane
+has 8 columns, so seats in the same row will all share the first "piece" of this
+equation, with the "col" making these ids map to all integers from 0 to 1024
+(127 x 8 + 8). With all the ids calculated, I just need to find the difference
+between the ids I have and the set of all possible ids.
 
 ```python
 def part_2_for_real_now():
@@ -362,11 +455,20 @@ def part_2_for_real_now():
 
 ## Day 6: Custom Customs
 
-This day was an exercise on python's [`Counter`][counter] data structure. The input represents questions (marked a to z) people answered "yes" to in a customs declaration form, and for part 1, we're interested in finding how many questions any individual in a group of people answered "yes" to. Each line is an individual, and groups are separated by an empty line.
+This day was an exercise on python's [`Counter`][counter] data structure. The
+input represents questions (marked a to z) people answered "yes" to in a customs
+declaration form, and for part 1, we're interested in finding how many questions
+any individual in a group of people answered "yes" to. Each line is an
+individual, and groups are separated by an empty line.
 
-Ah! Also since this day, I stopped separating the puzzles by parts. I'll just write the solutions and separate into functions the repeat bits for better organization.
+Ah! Also since this day, I stopped separating the puzzles by parts. I'll just
+write the solutions and separate into functions the repeat bits for better
+organization.
 
-So I just pass each line to a `Counter` instance, and add them up for each group. `Counter` implements addition so `Counter('abc') + Counter('cde')` will be equivalent to the dictionary `{'c': 2, 'a': 1, 'b': 1, 'd': 1, 'e': 1}` (note the key `c` has value `2`, because it appears in both sides of the sum).
+So I just pass each line to a `Counter` instance, and add them up for each
+group. `Counter` implements addition so `Counter('abc') + Counter('cde')` will
+be equivalent to the dictionary `{'c': 2, 'a': 1, 'b': 1, 'd': 1, 'e': 1}` (note
+the key `c` has value `2`, because it appears in both sides of the sum).
 
 ```python
 groups = []
@@ -387,9 +489,14 @@ print("--- part 1 ---")
 print(sum(map(lambda c: len(c[0]), groups)))
 ```
 
-Using `Counter`s made part 2 super easy. We learn that we don't want to count how many questions _anyone_ answered "yes", but the ones where _everyone_ in the group answered yes.
+Using `Counter`s made part 2 super easy. We learn that we don't want to count
+how many questions _anyone_ answered "yes", but the ones where _everyone_ in the
+group answered yes.
 
-So for each group captured in part 1, I call `most_common()` in the counter, which will return each letter sorted by their count in decrescent order. If the count is the same as the size of the group, this letter represents the question all individuals answered "yes" to.
+So for each group captured in part 1, I call `most_common()` in the counter,
+which will return each letter sorted by their count in decrescent order. If the
+count is the same as the size of the group, this letter represents the question
+all individuals answered "yes" to.
 
 ```python
 total_count = 0
@@ -405,14 +512,23 @@ print(total_count)
 
 # Day 17: Conway Cubes
 
-The title says it all: we're dealing with [Conway's Game of Life][game-of-life]. The input is a two-dimensional slice of a three-dimensional grid of "cubes" that can either active or inactive. Cubes change their state in cycles, considering the state of their neighbors. In three-dimensional space, each cube has a total of 26 neighbors (a 3x3x3 integer region in this space). The rules are the general of Conway's game of life:
+The title says it all: we're dealing with [Conway's Game of Life][game-of-life].
+The input is a two-dimensional slice of a three-dimensional grid of "cubes" that
+can either active or inactive. Cubes change their state in cycles, considering
+the state of their neighbors. In three-dimensional space, each cube has a total
+of 26 neighbors (a 3x3x3 integer region in this space). The rules are the
+general of Conway's game of life:
 
-- If a cube is active and exactly 2 or 3 of its neighbors are also active, the cube remains active. Otherwise, the cube becomes inactive.
-- If a cube is inactive but exactly 3 of its neighbors are active, the cube becomes active. Otherwise, the cube remains inactive.
+- If a cube is active and exactly 2 or 3 of its neighbors are also active, the
+  cube remains active. Otherwise, the cube becomes inactive.
+- If a cube is inactive but exactly 3 of its neighbors are active, the cube
+  becomes active. Otherwise, the cube remains inactive.
 
 All the puzzle is asking is how many cubes will be active after 6 cycles.
 
-I borrowed the "neighbors" processing from day 11 adjacent seat calculation and extrapolated for N dimensions. I thought we were either using this in a future puzzle, or there would be more dimensions in part 2.
+I borrowed the "neighbors" processing from day 11 adjacent seat calculation and
+extrapolated for N dimensions. I thought we were either using this in a future
+puzzle, or there would be more dimensions in part 2.
 
 ```python
 from itertools import product
@@ -433,7 +549,8 @@ def neighborhood(*position: int) -> Iterator[Tuple[int]]:
         yield neighbor
 ```
 
-I start by processing the input, saving if they are active (`#`) or inactive (`.`) in a dictionary keyed by the point in 3 dimensions
+I start by processing the input, saving if they are active (`#`) or inactive
+(`.`) in a dictionary keyed by the point in 3 dimensions
 
 ```python
 initial = """
@@ -454,7 +571,12 @@ for x, line in enumerate(initial.splitlines()):
         space[cube] = state
 ```
 
-Because the space is infinite, cubes for other values of the third-dimension and outside the borders of the input need to be taken into account. Instead of finding the borders of the active nodes, I decided to go over each of the known cubes, and if they are added, I would increment a counter for each of these neighbors. I would end up with more points than the iteration before, and how many of these points have active neighbors.
+Because the space is infinite, cubes for other values of the third-dimension and
+outside the borders of the input need to be taken into account. Instead of
+finding the borders of the active nodes, I decided to go over each of the known
+cubes, and if they are added, I would increment a counter for each of these
+neighbors. I would end up with more points than the iteration before, and how
+many of these points have active neighbors.
 
 ```python
 cube_to_active_count = defaultdict(int)
@@ -466,7 +588,10 @@ for cube in space:
         cube_to_active_count[n] += space[cube] == "#"
 ```
 
-As I said earlier, dictionary `cube_to_active_count` will end up with more points than the space before. For each of those points I can now decide if they are active or inactive given how many of the original space were active. Here's the direct translation of the rules defined above:
+As I said earlier, dictionary `cube_to_active_count` will end up with more
+points than the space before. For each of those points I can now decide if they
+are active or inactive given how many of the original space were active. Here's
+the direct translation of the rules defined above:
 
 ```python
 for n, count in cube_to_active_count.items():
@@ -480,9 +605,13 @@ for n, count in cube_to_active_count.items():
             space[n] = "#"
 ```
 
-After running this 6 times (a simple `for _ in range(6)`), I just sum up the values of the space dictionary that are equal to the active state char `#`.
+After running this 6 times (a simple `for _ in range(6)`), I just sum up the
+values of the space dictionary that are equal to the active state char `#`.
 
-Part 2 of the puzzle just asked for running the same 6 cycles, but now in a four-dimensions space! No change was needed to the neighborhood calculation, so that was a win. I needed to change the input parsing to allow for another dimension:
+Part 2 of the puzzle just asked for running the same 6 cycles, but now in a
+four-dimensions space! No change was needed to the neighborhood calculation, so
+that was a win. I needed to change the input parsing to allow for another
+dimension:
 
 ```diff
  space = defaultdict(lambda: ".")
@@ -493,9 +622,18 @@ Part 2 of the puzzle just asked for running the same 6 cycles, but now in a four
          space[cube] = state
 ```
 
-Then I just copied the code verbatim from part 1 and got to the correct answer. It was taking a couple of seconds to run though, given that now we are growing the space in each cycle due to each cube now adding at most 80 cubes to the "known" space state.
+Then I just copied the code verbatim from part 1 and got to the correct answer.
+It was taking a couple of seconds to run though, given that now we are growing
+the space in each cycle due to each cube now adding at most 80 cubes to the
+"known" space state.
 
-I noticed that I was just counting active cubes in the first for loop to find the affected neighbors, adding a lot of references to new points but only saying these had 0 active cubes around them. So I edited the code to skip neighbor processing of inactive cubes (the majority of the iterations), and with a couple of adjustments, I had a solution running in 0.3 seconds. I then generalized it as well to run for multiple dimensions, with some nice tricks to parse the input. Here's the full code for the cycle:
+I noticed that I was just counting active cubes in the first for loop to find
+the affected neighbors, adding a lot of references to new points but only saying
+these had 0 active cubes around them. So I edited the code to skip neighbor
+processing of inactive cubes (the majority of the iterations), and with a couple
+of adjustments, I had a solution running in 0.3 seconds. I then generalized it
+as well to run for multiple dimensions, with some nice tricks to parse the
+input. Here's the full code for the cycle:
 
 ```python
 def full_cycle(initial: str, dimensions: int) -> int:
@@ -537,7 +675,9 @@ print("--- part 2 ---")
 print(full_cycle(initial, 4))
 ```
 
-There are a couple of tricks to decrease the line count around the check if a cube becomes active or inactive, but it wouldn't add much in terms of performance. I'm pretty happy with this solution!
+There are a couple of tricks to decrease the line count around the check if a
+cube becomes active or inactive, but it wouldn't add much in terms of
+performance. I'm pretty happy with this solution!
 
 [aoc-about]: https://adventofcode.com/about
 [aoc-repo]: https://github.com/rbusquet/advent-of-code
@@ -546,10 +686,13 @@ There are a couple of tricks to decrease the line count around the check if a cu
 [day-3]: https://adventofcode.com/2020/day/3
 [day-4]: https://adventofcode.com/2020/day/4
 [day-5]: https://adventofcode.com/2020/day/5
-[combinations]: https://docs.python.org/3.8/library/itertools.html?#itertools.combinations
+[combinations]:
+  https://docs.python.org/3.8/library/itertools.html?#itertools.combinations
 [count]: https://docs.python.org/3.8/library/itertools.html?#itertools.count
-[triplet-sum]: https://www.geeksforgeeks.org/find-a-triplet-that-sum-to-a-given-value/
+[triplet-sum]:
+  https://www.geeksforgeeks.org/find-a-triplet-that-sum-to-a-given-value/
 [regexp]: https://en.wikipedia.org/wiki/Regular_expression
-[counter]: https://docs.python.org/3/library/collections.html#collections.Counter
+[counter]:
+  https://docs.python.org/3/library/collections.html#collections.Counter
 [toboggan]: https://en.wikipedia.org/wiki/Toboggan
 [game-of-life]: https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life
