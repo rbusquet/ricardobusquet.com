@@ -63,13 +63,21 @@ function Document({
 function Layout({ children }: React.PropsWithChildren<{}>) {
   return (
     <>
-      <div role="heading" className="header">
+      <div role="heading" aria-level={1} className="header">
         <nav aria-label="Main navigation" className="header-nav">
           <h1>Ricardo Busquet</h1>
           <span>
             <Link to="/">Home</Link>
             {" · "}
             <a href="https://github.com/rbusquet">GitHub</a>
+            {" · "}
+            <a rel="me" href="https://bolha.us/@rbusquet">
+              Mastodon
+            </a>
+            {" · "}
+            <a rel="me" href="https://twitter.com/@ricbusquet">
+              Twitter
+            </a>
           </span>
         </nav>
       </div>
@@ -138,7 +146,7 @@ export function ErrorBoundary({ error }: { error: Error }) {
 /**
  * Provides an alert for screen reader users when the route changes.
  */
-const RouteChangeAnnouncement = React.memo(() => {
+const RouteChangeAnnouncement = React.memo(function RouteChangeAnnouncement() {
   let [hydrated, setHydrated] = React.useState(false);
   let [innerHtml, setInnerHtml] = React.useState("");
   let location = useLocation();
