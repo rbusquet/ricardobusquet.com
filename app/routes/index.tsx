@@ -51,8 +51,9 @@ export default function Index() {
         <h2>Hello, I'm Ricardo! 👋</h2>
         <p>Nice to meet you!</p>
         <p>
-          I'm a software engineer based in New York. Born and raised in Brazil.
-          Find me on{" "}
+          As a software engineer based in New York, I bring my skills and
+          experience to the forefront of technology. Originally from Brazil, I
+          am active on social media and can be found on{" "}
           <a rel="me" href="https://twitter.com/ricbusquet">
             Twitter
           </a>
@@ -60,7 +61,7 @@ export default function Index() {
           <a rel="me" href="https://bolha.us/@rbusquet">
             Mastodon
           </a>
-          , and <a href="https://github.com/rbusquet">GitHub</a>!
+          , and <a href="https://github.com/rbusquet">GitHub</a>.
         </p>
       </main>
       <aside>
