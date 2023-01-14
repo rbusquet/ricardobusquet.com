@@ -27,7 +27,7 @@ function postFromModule(mod: Post): {
   };
 }
 
-export const loader = () => {
+export async function loader() {
   // Return metadata about each of the posts for display on the index page.
   // Referencing the posts here instead of in the Index component down below
   // lets us avoid bundling the actual posts themselves in the bundle for the
@@ -41,7 +41,7 @@ export const loader = () => {
     ],
     { headers: { "Cache-Control": "public, max-age=604800, immutable" } }
   );
-};
+}
 
 export default function Index() {
   let posts = useLoaderData<typeof loader>();
