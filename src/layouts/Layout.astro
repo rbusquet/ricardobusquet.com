@@ -1,35 +1,49 @@
 ---
+import "./styles/global.css";
+import "./styles/inter.css";
+import "./styles/cascadia.css";
+
 export interface Props {
-	title: string;
+  title: string;
+  extraLinks?: HTMLLinkElement[];
 }
 
-const { title } = Astro.props;
+const { title, extraLinks = [] } = Astro.props;
 ---
 
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<title>{title}</title>
-	</head>
-	<body>
-		<slot />
-	</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
+    <meta name="generator" content={Astro.generator} />
+    {extraLinks}
+    <title>{title}</title>
+  </head>
+  <body>
+    <>
+      <div role="heading" aria-level={1} class="header">
+        <nav aria-label="Main navigation" class="header-nav">
+          <h1>Ricardo Busquet</h1>
+          <span>
+            <a href="/">Home</a>
+            {" · "}
+            <a href="https://github.com/rbusquet">GitHub</a>
+            {" · "}
+            <a rel="me" href="https://bolha.us/@rbusquet"> Mastodon</a>
+            {" · "}
+            <a rel="me" href="https://twitter.com/@ricbusquet"> Twitter</a>
+          </span>
+        </nav>
+      </div>
+      <slot />
+      <footer>
+        &copy; Ricardo Busquet - {new Date().getFullYear()}
+        <br />
+        powered by
+        <a href="https://astro.build/" rel="noopener noreferer">astro.build</a>
+      </footer>
+    </>
+  </body>
 </html>
-<style is:global>
-	:root {
-		--accent: 124, 58, 237;
-		--accent-gradient: linear-gradient(45deg, rgb(var(--accent)), #da62c4 30%, white 60%);
-	}
-	html {
-		font-family: system-ui, sans-serif;
-		background-color: #F6F6F6;
-	}
-	code {
-		font-family: Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono,
-			Bitstream Vera Sans Mono, Courier New, monospace;
-	}
-</style>

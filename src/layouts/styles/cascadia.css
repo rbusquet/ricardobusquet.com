@@ -1,0 +1,14 @@
+@font-face {
+  font-family: "Cascadia Code";
+  font-style: monospace;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("/fonts/cascadia/CascadiaCode.woff2?v=2111.01") format("woff2");
+}
+@font-face {
+  font-family: "Cascadia Code";
+  font-style: italic;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("/fonts/cascadia/CascadiaCodeItalic.woff2?v=2111.01") format("woff2");
+}
