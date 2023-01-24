@@ -1,0 +1,22 @@
+---
+import Layout from "../../layouts/Layout.astro";
+
+const posts = await Astro.glob("../posts/*.md");
+---
+
+<Layout title="Ricardo Busquet">
+  <h2>Blog posts</h2>
+
+  <ul>
+    {
+      posts
+        .sort((a, b) => (a.frontmatter.date < b.frontmatter.date ? 1 : -1))
+        .map(({ url, frontmatter: meta }) => (
+          <li>
+            <a href={url}>{meta.title}</a>
+            {meta.description && <p>{meta.description}</p>}
+          </li>
+        ))
+    }
+  </ul>
+</Layout>
