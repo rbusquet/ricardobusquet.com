@@ -1,7 +1,5 @@
 import { defineConfig } from "astro/config";
-
 import slug from "rehype-slug";
-import autolink from "rehype-autolink-headings";
 import toc from "remark-toc";
 import gfm from "remark-gfm";
 import gemoji from "remark-gemoji";
@@ -10,7 +8,7 @@ import gemoji from "remark-gemoji";
 export default defineConfig({
   markdown: {
     remarkPlugins: [toc, gfm, gemoji],
-    rehypePlugins: [slug, autolink],
+    rehypePlugins: [slug],
     shikiConfig: {
       theme: "light-plus",
     },

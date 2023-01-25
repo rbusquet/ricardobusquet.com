@@ -1,9 +1,9 @@
 ---
 import Layout from "./Layout.astro";
 
-const { frontmatter } = Astro.props;
-
-const { file, url, ...meta } = frontmatter;
+const {
+  frontmatter: { meta },
+} = Astro.props;
 ---
 
 <Layout title={meta.title} meta={meta}>

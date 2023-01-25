@@ -10,8 +10,10 @@ const posts = await Astro.glob("../posts/*.md");
   <ul>
     {
       posts
-        .sort((a, b) => (a.frontmatter.date < b.frontmatter.date ? 1 : -1))
-        .map(({ url, frontmatter: meta }) => (
+        .sort((a, b) =>
+          a.frontmatter.meta.date < b.frontmatter.meta.date ? 1 : -1
+        )
+        .map(({ url, frontmatter: { meta } }) => (
           <li>
             <a href={url}>{meta.title}</a>
             {meta.description && <p>{meta.description}</p>}

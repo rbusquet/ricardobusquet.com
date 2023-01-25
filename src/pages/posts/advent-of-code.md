@@ -1,12 +1,13 @@
 ---
 layout: ../../layouts/PostLayout.astro
-title: Advent of Code 2020 - Solutions review
-date: "2020-12-06"
-categories:
-- advent-of-code
-- python
-coverImage: advent-of-code-2020-solutions-review.jpg
-credits: Photo by <a href="https://unsplash.com/@markusspiske">Markus Spiske</a>
+meta:
+  title: Advent of Code 2020 - Solutions review
+  date: "2020-12-06"
+  categories:
+    - advent-of-code
+    - python
+  coverImage: advent-of-code-2020-solutions-review.jpg
+  credits: Photo by <a href="https://unsplash.com/@markusspiske">Markus Spiske</a>
 ---
 
 # Advent of Code 2020 - Solutions review
@@ -685,13 +686,10 @@ performance. I'm pretty happy with this solution!
 [day-3]: https://adventofcode.com/2020/day/3
 [day-4]: https://adventofcode.com/2020/day/4
 [day-5]: https://adventofcode.com/2020/day/5
-[combinations]:
-  https://docs.python.org/3.8/library/itertools.html?#itertools.combinations
+[combinations]: https://docs.python.org/3.8/library/itertools.html?#itertools.combinations
 [count]: https://docs.python.org/3.8/library/itertools.html?#itertools.count
-[triplet-sum]:
-  https://www.geeksforgeeks.org/find-a-triplet-that-sum-to-a-given-value/
+[triplet-sum]: https://www.geeksforgeeks.org/find-a-triplet-that-sum-to-a-given-value/
 [regexp]: https://en.wikipedia.org/wiki/Regular_expression
-[counter]:
-  https://docs.python.org/3/library/collections.html#collections.Counter
+[counter]: https://docs.python.org/3/library/collections.html#collections.Counter
 [toboggan]: https://en.wikipedia.org/wiki/Toboggan
 [game-of-life]: https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life
