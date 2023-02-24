@@ -1,13 +1,11 @@
 ---
-layout: ../../layouts/PostLayout.astro
 meta:
   title: Advent of Code 2020 - Solutions review
   date: "2020-12-06"
   categories:
     - advent-of-code
     - python
-  coverImage: advent-of-code-2020-solutions-review.jpg
-  credits: Photo by <a href="https://unsplash.com/@markusspiske">Markus Spiske</a>
+  description: Some solutions for advent of code 2020.
 ---
 
 # Advent of Code 2020 - Solutions review

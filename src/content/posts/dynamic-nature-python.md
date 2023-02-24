@@ -1,13 +1,10 @@
 ---
-layout: ../../layouts/PostLayout.astro
 meta:
   title: The dynamic nature of Python's MRO
   date: "2020-10-02"
-  coverImage: dynamic-nature-of-python.jpg
   categories:
     - python
-  credits:
-    Photo by <a href="https://unsplash.com/@smigielski">Adam Śmigielski</a>
+  description: Explaing some aspects of the dynamic nature of python.
 ---
 
 # The dynamic nature of Python's MRO

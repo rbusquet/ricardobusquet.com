@@ -1,0 +1,39 @@
+---
+import type { CollectionEntry } from "astro:content";
+import { getCollection } from "astro:content";
+import Layout from "../../layouts/Layout.astro";
+
+interface Props {
+  entry: CollectionEntry<"uses">;
+}
+
+export async function getStaticPaths() {
+  const entries = await getCollection("uses");
+
+  const en = entries.find((entry) => entry.slug == "en");
+  return [
+    {
+      params: { lang: undefined },
+      props: { entry: en },
+    },
+    ...entries.map((entry) => ({
+      params: { lang: entry.slug },
+      props: { entry },
+    })),
+  ];
+}
+
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+---
+
+<Layout
+  lang={entry.slug}
+  title="What Ricardo Busquet uses"
+  meta={{
+    description:
+      "Developer setups, gear, software and configs used by Ricardo Busquet",
+  }}
+>
+  <Content />
+</Layout>

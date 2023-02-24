@@ -1,7 +1,8 @@
 ---
+import { getCollection } from "astro:content";
 import Layout from "../../layouts/Layout.astro";
 
-const posts = await Astro.glob("../posts/*.md");
+const entries = await getCollection("posts");
 ---
 
 <Layout title="Ricardo Busquet">
@@ -9,13 +10,11 @@ const posts = await Astro.glob("../posts/*.md");
 
   <ul>
     {
-      posts
-        .sort((a, b) =>
-          a.frontmatter.meta.date < b.frontmatter.meta.date ? 1 : -1
-        )
-        .map(({ url, frontmatter: { meta } }) => (
+      entries
+        .sort((a, b) => (a.data.meta.date < b.data.meta.date ? 1 : -1))
+        .map(({ slug, data: { meta } }) => (
           <li>
-            <a href={url}>{meta.title}</a>
+            <a href={`/posts/${slug}`}>{meta.title}</a>
             {meta.description && <p>{meta.description}</p>}
           </li>
         ))

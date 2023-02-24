@@ -1,16 +1,11 @@
 ---
-layout: ../../layouts/PostLayout.astro
 meta:
   title: Visualizing React hooks' lazy initial state
   date: "2020-11-13"
   categories:
     - react
     - javascript
-  credits:
-    <span>Photo by <a href="https://unsplash.com/@proozenburg">Presley
-    Roozenburg</a> on <a
-    href="https://unsplash.com/photos/gklfv5avr4c">Unsplash</a></span>
-  coverImage: visualizing-lazy-initial-state.jpg
+  description: Visualizing React hooks' lazy initial state by rewriting some common examples.
 ---
 
 # Visualizing React hooks' lazy initial state
