@@ -14,10 +14,7 @@ const { slug } = Astro.params;
 const entry = await getEntryBySlug("posts", slug || "");
 
 if (!entry) {
-  return new Response(null, {
-    status: 404,
-    statusText: "Not found",
-  });
+  return Astro.redirect("/404");
 }
 // 3. (Optional) render the entry to HTML in the template
 const { Content } = await entry.render();
