@@ -10,7 +10,7 @@ interface Props {
 // 1. Get the slug from the incoming server request
 const { slug } = Astro.params;
 // 2. Query for the entry directly using the request slug
-const entry = await getEntryBySlug("uses", slug || "");
+const entry = await getEntryBySlug("uses", slug || "en");
 
 if (!entry) {
   return Astro.redirect("/uses");
