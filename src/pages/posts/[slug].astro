@@ -14,7 +14,7 @@ const { slug } = Astro.params;
 const entry = await getEntryBySlug("posts", slug || "");
 
 if (!entry) {
-  return Astro.redirect("/404");
+  return Astro.redirect("/404", 404);
 }
 // 3. (Optional) render the entry to HTML in the template
 const { Content } = await entry.render();

@@ -1,29 +1,21 @@
 ---
 import type { CollectionEntry } from "astro:content";
-import { getCollection } from "astro:content";
+import { getEntryBySlug } from "astro:content";
 import Layout from "../../layouts/Layout.astro";
 
 interface Props {
   entry: CollectionEntry<"uses">;
 }
 
-export async function getStaticPaths() {
-  const entries = await getCollection("uses");
+// 1. Get the slug from the incoming server request
+const { slug } = Astro.params;
+// 2. Query for the entry directly using the request slug
+const entry = await getEntryBySlug("uses", slug || "");
 
-  const en = entries.find((entry) => entry.slug == "en");
-  return [
-    {
-      params: { lang: undefined },
-      props: { entry: en },
-    },
-    ...entries.map((entry) => ({
-      params: { lang: entry.slug },
-      props: { entry },
-    })),
-  ];
+if (!entry) {
+  return Astro.redirect("/uses");
 }
-
-const { entry } = Astro.props;
+// 3. (Optional) render the entry to HTML in the template
 const { Content } = await entry.render();
 ---
 
