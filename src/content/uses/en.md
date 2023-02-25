@@ -11,7 +11,7 @@ Some info about gear and software I use in my day-to-day <span style="float: rig
 - [Catppucin for VSCode][color-theme]: Color theme by [Catppucin][catppucin]
 - [Cascadia Code PL][cascadia-code] by Microsoft
 
-### Meu escritório
+### My office
 
 - Personal computer: Macbook Air M1, 2020
 - Work computer: Macbook Pro
